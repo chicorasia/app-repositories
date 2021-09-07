@@ -1,0 +1,154 @@
+{
+  "data": [
+    {
+      "id": 343901509,
+      "name": "alura-app-financas",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/alura-app-financas",
+      "description": "App de finanças pessoais desenvolvido no treinamento de Kotlin e Android",
+      "stargazers_count": 1,
+      "language": "Kotlin",
+      "created_at": "2021-03-02T20:19:04Z",
+      "updated_at": "2021-06-04T17:43:18Z",
+      "pushed_at": "2021-06-04T17:43:16Z",
+      "license": null
+    },
+    {
+      "id": 370326723,
+      "name": "anagrama",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/anagrama",
+      "description": "Você consegue desembaralhar as letras e descobrir a palavra secreta?",
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "created_at": "2021-05-24T11:21:30Z",
+      "updated_at": "2021-06-22T21:31:35Z",
+      "pushed_at": "2021-06-22T21:31:32Z",
+      "license": {
+        "key": "mit",
+        "name": "MIT License",
+        "spdx_id": "MIT",
+        "url": "https://api.github.com/licenses/mit",
+        "node_id": "MDc6TGljZW5zZTEz"
+      }
+    },
+    {
+      "id": 346108235,
+      "name": "android-lifecycle-playground",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/android-lifecycle-playground",
+      "description": "App para explorar conceitos de ciclo de vida no Android",
+      "stargazers_count": 1,
+      "language": "Kotlin",
+      "created_at": "2021-03-09T18:41:27Z",
+      "updated_at": "2021-03-09T19:57:45Z",
+      "pushed_at": "2021-03-09T18:44:17Z",
+      "license": null
+    },
+    {
+      "id": 402152883,
+      "name": "app-repositories",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/app-repositories",
+      "description": "This very app!",
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "created_at": "2021-09-01T17:48:31Z",
+      "updated_at": "2021-09-01T17:48:32Z",
+      "pushed_at": "2021-07-20T12:30:57Z",
+      "license": null
+    },
+    {
+      "id": 351892751,
+      "name": "bootcamp-agenda",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/bootcamp-agenda",
+      "description": "Exercício desenvolvido no módulo Utilizando Recursos Nativos do Android, Everis Kotlin Bootcamp",
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "created_at": "2021-03-26T19:36:29Z",
+      "updated_at": "2021-03-26T19:38:18Z",
+      "pushed_at": "2021-03-26T19:38:16Z",
+      "license": null
+    },
+    {
+      "id": 343367463,
+      "name": "bootcamp-calculadora",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/bootcamp-calculadora",
+      "description": "Exercício final do módulo de introdução à sintaxe Kotlin - DIO Everis Kotlin Bootcamp",
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "created_at": "2021-03-01T09:58:52Z",
+      "updated_at": "2021-03-03T14:42:56Z",
+      "pushed_at": "2021-03-03T14:42:53Z",
+      "license": null
+    },
+    {
+      "id": 344590922,
+      "name": "bootcamp-calculadora-de-notas",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/bootcamp-calculadora-de-notas",
+      "description": "App calculadora de notas",
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "created_at": "2021-03-04T19:47:31Z",
+      "updated_at": "2021-03-05T18:26:12Z",
+      "pushed_at": "2021-03-05T18:26:09Z",
+      "license": null
+    },
+    {
+      "id": 351893456,
+      "name": "bootcamp-contatos",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/bootcamp-contatos",
+      "description": "Exercício de agenda de contatos, desenvolvido no módulo Usando Recursos Nativos do Android, Everis Kotlin Bootcamp",
+      "stargazers_count": 0,
+      "language": "Kotlin",
+      "created_at": "2021-03-19T18:27:10Z",
+      "updated_at": "2021-03-19T18:44:30Z",
+      "pushed_at": "2021-03-19T18:44:28Z",
+      "license": null
+    },
+    {
+      "id": 343447398,
+      "name": "bootcamp-digione-bank",
+      "owner": {
+        "login": "chicorasia",
+        "avatar_url": "https://avatars.githubusercontent.com/u/63069850?v=4"
+      },
+      "html_url": "https://github.com/chicorasia/bootcamp-digione-bank",
+      "description": "Projeto desenvolvido ao longo do módulo Fundamentos de Orientação a Objetos com Kotlin.",
+      "stargazers_count": 1,
+      "language": "Kotlin",
+      "created_at": "2021-03-26T19:39:50Z",
+      "updated_at": "2021-03-26T19:40:19Z",
+      "pushed_at": "2021-03-26T19:40:16Z",
+      "license": null
+    }
+  ]
+}
