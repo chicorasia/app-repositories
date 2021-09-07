@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+<!--    Esse XML representa um item da lista -->
+<!--    TODO: converter em data binding layout e adicionar vinculação à entidade -->
+<!--    TODO: adicionar formatação de string para conversão da data -->
+<!--    TODO: criar adapter para formatar o itemLanguageChip conforme valor -->
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/itemCardView"
         android:layout_width="match_parent"
