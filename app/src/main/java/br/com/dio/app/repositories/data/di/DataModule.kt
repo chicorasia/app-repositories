@@ -1,4 +1,4 @@
-package br.com.dio.app.repositories.di
+package br.com.dio.app.repositories.data.di
 
 import android.util.Log
 import br.com.dio.app.repositories.data.services.GithubService
