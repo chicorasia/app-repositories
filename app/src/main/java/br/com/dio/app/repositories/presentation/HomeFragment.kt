@@ -1,4 +1,4 @@
-package br.com.dio.app.repositories.ui
+package br.com.dio.app.repositories.presentation
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
