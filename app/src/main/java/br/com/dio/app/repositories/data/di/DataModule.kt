@@ -1,6 +1,8 @@
 package br.com.dio.app.repositories.data.di
 
 import android.util.Log
+import br.com.dio.app.repositories.data.repositories.RepoRepository
+import br.com.dio.app.repositories.data.repositories.RepoRepositoryImpl
 import br.com.dio.app.repositories.data.services.GithubService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -16,8 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
  * Essa object class é reponsável por instanciar e configurar os serviços web.
  * Ela tem duas responsabilidades: configurar os serviços web (OkHttp e Retrofit)
  * e fazer a injeçãoo das dependências por meio do Koin.
- * Eventualmente posso vir a separar as responsabilidades, dependendo das condições
- * de configuração de ViewModels e Fragments
+ * A filosofia adotada é agrupar os módulos por camadas.
  */
 
 object DataModule {
@@ -26,10 +27,12 @@ object DataModule {
     private const val BASE_URL = "https://api.github.com"
 
     /**
-     * Essa função fica exposta publicamente e é chamada na classe App
+     * Essa função fica exposta publicamente e é chamada na classe App.
+     * Note o uso de concatenação para juntar várias listas de módulos em
+     * uma única chamada. Isso evita duplicação de código na classe App.
      */
     fun load() {
-        loadKoinModules(networkModule())
+        loadKoinModules(networkModule() + repositoriesModule())
     }
 
     /**
@@ -70,17 +73,28 @@ object DataModule {
     }
 
     /**
+     * Esse método instancia uma RepoRepositoryImpl indicando sua dependência
+     */
+    private fun repositoriesModule() : Module {
+        return module {
+            single<RepoRepository> { RepoRepositoryImpl(get()) }
+        }
+    }
+
+    /**
      * Essa função instancia um objeto Retrofit a partir dos
      * parâmetros recebidos via construtor: o cliente OkHttp (por causa
      * do interceptor) e o conversor de Json.
      */
     private inline fun <reified T> createService(client: OkHttpClient, factory: Moshi): T {
         return Retrofit.Builder()
+            .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(MoshiConverterFactory.create(factory))
             .build()
             .create(T::class.java)
 
     }
+
 
 }

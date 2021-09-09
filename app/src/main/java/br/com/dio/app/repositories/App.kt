@@ -2,6 +2,7 @@ package br.com.dio.app.repositories
 
 import android.app.Application
 import br.com.dio.app.repositories.data.di.DataModule
+import br.com.dio.app.repositories.domain.di.DomainModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -16,9 +17,10 @@ class App : Application() {
 
         /**
          * Invoca a função load() do DataModule para instanciar os
-         * serviços web
+         * serviços web e do DomainModule para instanciar os use cases
          */
         DataModule.load()
+        DomainModule.load()
 
     }
 }

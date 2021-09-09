@@ -4,7 +4,7 @@ import com.squareup.moshi.Json
 
 
 /**
- * Essa data class representa um Repo recebido da API. Usei annotations para
+ * Essa data class representa um Repo recebido da API. Usei a anotação @Json para
  * mapear corretamente alguns parâmetros e manter a padronização camelCase
  * indicada para o Kotlin. Os atributos License e Description precisam ser nuláveis para
  * acomodar valores nulos retornados da API.
