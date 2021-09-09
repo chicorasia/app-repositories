@@ -1,4 +1,4 @@
-package br.com.dio.app.repositories.ui
+package br.com.dio.app.repositories.presentation
 
 import android.os.Bundle
 import android.util.Log
