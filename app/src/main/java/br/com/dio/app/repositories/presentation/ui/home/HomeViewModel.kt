@@ -1,9 +1,6 @@
 package br.com.dio.app.repositories.presentation.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.ListUserRepositoriesUseCase
 import kotlinx.coroutines.flow.catch
@@ -20,8 +17,26 @@ class HomeViewModel(
     private val listUserRepositoriesUseCase: ListUserRepositoriesUseCase
 ) : ViewModel() {
 
+
+
+
     /**
-     * Esse campo mantém o State doi Flow. Foi usada a técnica de encapsulamento
+     * Esse campo e as respectivas funções controlam a visibilidade
+     * da ProgressBar
+     */
+    private val _progressBarVisible = MutableLiveData<Boolean>(false)
+    val progressBarVisible: LiveData<Boolean>
+        get() = _progressBarVisible
+
+    fun showProgressBar() {
+        _progressBarVisible.value = true
+    }
+
+    fun hideProgressBar() {
+        _progressBarVisible.value = false
+    }
+    /**
+     * Esse campo mantém o State do Flow. Foi usada a técnica de encapsulamento
      * padrão recomendada pela Google.
      */
     private val _repo = MutableLiveData<State>()

@@ -1,9 +1,11 @@
 package br.com.dio.app.repositories.data.repositories
 
+import br.com.dio.app.repositories.core.RemoteException
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.services.GithubService
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import retrofit2.HttpException
 
 /**
  * Essa classe implementa a interface RepoRepository, recebendo os services
@@ -17,8 +19,12 @@ class RepoRepositoryImpl(private val service: GithubService) : RepoRepository {
      * converter e emitir a lista recebida da na forma de um fluxo.
      */
     override suspend fun listRepositories(user: String): Flow<List<Repo>> = flow {
-        val repoList = service.listRepositories(user)
-        emit(repoList)
+        try {
+            val repoList = service.listRepositories(user)
+            emit(repoList)
+        } catch (ex: HttpException) {
+            throw RemoteException("Não foi possível acessar a API web!")
+        }
     }
 
 }
