@@ -29,23 +29,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
 
-        initProgressBar()
         initBinding()
         return binding.root
-    }
-
-    /**
-     * Esse método cria um observer para ocultar ou mostrar a ProgressBar
-     * conforme o campo do ViewModel
-     */
-    private fun initProgressBar() {
-        mViewModel.progressBarVisible.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.homeProgressBar.visibility = View.VISIBLE
-            } else {
-                binding.homeProgressBar.visibility = View.GONE
-            }
-        }
     }
 
     /**
@@ -62,7 +47,6 @@ class HomeFragment : Fragment() {
 
         mViewModel.getRepoList("chicorasia")
         binding.homeRepoRv.adapter = adapter
-
 
         initRepoObserver(view)
     }
