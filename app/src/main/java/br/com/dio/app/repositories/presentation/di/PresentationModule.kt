@@ -1,11 +1,15 @@
 package br.com.dio.app.repositories.presentation.di
 
-import br.com.dio.app.repositories.presentation.HomeViewModel
+import br.com.dio.app.repositories.presentation.ui.home.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
+/**
+ * Esse object é responsável pela instanciação dos ViewModels. Segue
+ * o padrão estabelecido nos outros arquivos de modules.
+ */
 object PresentationModule {
 
     fun load() {
@@ -14,7 +18,7 @@ object PresentationModule {
 
     private fun viewModelModule() : Module {
         return module {
-            viewModel { HomeViewModel(get())}
+            viewModel { HomeViewModel(get()) }
         }
     }
 }

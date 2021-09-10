@@ -1,93 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    xmlns:tools="http://schemas.android.com/tools">
 
-<!--    Esse XML representa um item da lista -->
-<!--    TODO: converter em data binding layout e adicionar vinculação à entidade -->
-<!--    TODO: adicionar formatação de string para conversão da data -->
-<!--    TODO: criar adapter para formatar o itemLanguageChip conforme valor -->
+    <data>
+        <variable
+            name="repo"
+            type="br.com.dio.app.repositories.data.model.Repo" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/itemCardView"
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/card_margin"
-        android:elevation="@dimen/cardview_default_elevation"
-        android:padding="@dimen/layout_half_padding"
-        app:cardCornerRadius="@dimen/cardview_default_radius"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!--    Esse XML representa um item da lista -->
+        <!--    TODO: adicionar formatação de string para conversão da data -->
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/itemCardView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/card_margin"
+            android:elevation="@dimen/cardview_default_elevation"
+            android:padding="@dimen/layout_half_padding"
+            app:cardCornerRadius="@dimen/cardview_default_radius"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:id="@+id/itemUserAvatarIv"
-                android:layout_width="@dimen/imageAvatarSize"
-                android:layout_height="@dimen/imageAvatarSize"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintTop_toBottomOf="parent"
-                tools:src="@tools:sample/avatars" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/itemRepoNameTv"
-                style="?attr/textAppearanceHeadline6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/card_margin"
-                app:layout_constraintStart_toEndOf="@id/itemUserAvatarIv"
-                app:layout_constraintTop_toTopOf="@id/itemUserAvatarIv"
-                tools:text="@sample/repositories_cr.json/data/name"
-                />
+                <ImageView
+                    android:id="@+id/itemUserAvatarIv"
+                    android:layout_width="@dimen/imageAvatarSize"
+                    android:layout_height="@dimen/imageAvatarSize"
+                    itemUserAvatarIv="@{repo}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="parent"
+                    tools:src="@tools:sample/avatars" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/itemDescricaoTv"
-                style="?attr/textAppearanceBody2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
-                app:layout_constraintTop_toBottomOf="@id/itemRepoNameTv"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:ellipsize="end"
-                android:maxLines="2"
-                tools:text="@sample/repositories_cr.json/data/description"
-                />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/itemRepoNameTv"
+                    style="?attr/textAppearanceHeadline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    itemRepoNameTv="@{repo}"
+                    android:layout_marginStart="@dimen/card_margin"
+                    app:layout_constraintStart_toEndOf="@id/itemUserAvatarIv"
+                    app:layout_constraintTop_toTopOf="@id/itemUserAvatarIv"
+                    tools:text="@sample/repositories_cr.json/data/name" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/itemStarChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
-                app:layout_constraintTop_toBottomOf="@id/itemDescricaoTv"
-                app:chipIcon="@drawable/ic_stars"
-                tools:text="@sample/repositories_cr.json/data/stargazers_count"
-                />
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/itemDescricaoTv"
+                    style="?attr/textAppearanceBody2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    itemDescricaoTv="@{repo}"
+                    app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
+                    app:layout_constraintTop_toBottomOf="@id/itemRepoNameTv"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    tools:text="@sample/repositories_cr.json/data/description" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/itemLanguageChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@sample/repositories_cr.json/data/language"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/itemStarChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    itemStarChip="@{repo}"
+                    app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
+                    app:layout_constraintTop_toBottomOf="@id/itemDescricaoTv"
+                    app:chipIcon="@drawable/ic_stars"
+                    tools:text="@sample/repositories_cr.json/data/stargazers_count" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/itemUpdateChip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="@sample/repositories_cr.json/data/updated_at"
-                app:layout_constraintStart_toEndOf="@id/itemStarChip"
-                app:layout_constraintEnd_toStartOf="@id/itemLanguageChip"
-                app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip"/>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/itemLanguageChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    itemLanguageChip="@{repo}"
+                    tools:text="@sample/repositories_cr.json/data/language"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/itemUpdateChip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    itemUpdateChip="@{repo}"
+                    tools:text="@sample/repositories_cr.json/data/updated_at"
+                    app:layout_constraintStart_toEndOf="@id/itemStarChip"
+                    app:layout_constraintEnd_toStartOf="@id/itemLanguageChip"
+                    app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </com.google.android.material.card.MaterialCardView>
+        </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

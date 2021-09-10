@@ -11,7 +11,7 @@ data class License (
     val name: String,
     @Json(name = "spdx_id")
     val spdxID: String,
-    val url: String,
+    val url: String?,
     @Json(name = "node_id")
     val nodeID: String
 )

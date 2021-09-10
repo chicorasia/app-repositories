@@ -1,4 +1,4 @@
-package br.com.dio.app.repositories.presentation
+package br.com.dio.app.repositories.presentation.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val listUserRepositoriesUseCase: ListUserRepositoriesUseCase
 ) : ViewModel() {
-
 
     /**
      * Esse campo mantém o State doi Flow. Foi usada a técnica de encapsulamento

@@ -18,7 +18,7 @@ data class Repo (
     val description: String?,
     @Json(name = "stargazers_count")
     val stargazersCount: Long,
-    val language: String,
+    val language: String?,
     @Json(name = "created_at")
     val createdAt: String,
     @Json(name = "updated_at")
@@ -27,8 +27,3 @@ data class Repo (
     val pushedAt: String,
     val license: License?
 )
-
-
-
-
-

@@ -23,7 +23,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object DataModule {
 
-    private const val OK_HTTP = " Ok Http"
+    private const val OK_HTTP = "Ok Http"
     private const val BASE_URL = "https://api.github.com"
 
     /**
