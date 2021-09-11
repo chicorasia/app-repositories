@@ -17,9 +17,6 @@ class HomeViewModel(
     private val listUserRepositoriesUseCase: ListUserRepositoriesUseCase
 ) : ViewModel() {
 
-
-
-
     /**
      * Esse campo e as respectivas funções controlam a visibilidade
      * da ProgressBar

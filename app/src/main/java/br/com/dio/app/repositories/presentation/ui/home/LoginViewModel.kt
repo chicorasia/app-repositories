@@ -22,6 +22,7 @@ class LoginViewModel : ViewModel() {
         _navegaParaHome.value = UsuarioLogado.usuarioLogado != null
     }
 
+    //TODO: adicionar validação de nome de usuário
     fun setUsuarioLogado(user: String?) {
         user?.let{
             UsuarioLogado.usuarioLogado = it

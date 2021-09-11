@@ -11,6 +11,10 @@ import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.LoginFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+/**
+ * Esse fragmento representa a tela inicial do app, que pede a informação de
+ * nome de usuário do github
+ */
 class LoginFragment : Fragment() {
 
 
@@ -25,18 +29,18 @@ class LoginFragment : Fragment() {
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        /**
+         * Esse ClickListener aciona o método do ViewModel passando o
+         * nome de usuário do campo EditText como parâmetro.
+         */
         binding.loginBtn.setOnClickListener {
             val user = binding.loginUsernameEdt.text.toString()
             mViewModel.setUsuarioLogado(user)
         }
 
-        return binding.root
-
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        /**
+         * Dispara a navegação para o HomeFragment
+         */
         mViewModel.navegaParaHome.observe(viewLifecycleOwner) { navegaParaHome ->
             if(navegaParaHome){
                 val directions = LoginFragmentDirections.vaiDeLoginFragmentParaHomeFragment()
@@ -44,7 +48,8 @@ class LoginFragment : Fragment() {
             }
         }
 
-    }
+        return binding.root
 
+    }
 
 }
