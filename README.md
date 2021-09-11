@@ -29,9 +29,9 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 ## Screenshots
 
-![Screenshot_1](C:\Users\chico\AndroidStudioProjects\app-repositories\Screenshot_1.png)
+![Screenshot_1](Screenshot_1.png)
 
-![Screenshot_2](C:\Users\chico\AndroidStudioProjects\app-repositories\Screenshot_2.png)
+![Screenshot_2](Screenshot_2.png)
 
 ****
 
