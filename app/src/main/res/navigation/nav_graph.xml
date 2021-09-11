@@ -19,6 +19,11 @@
         <action
             android:id="@+id/vaiDeLoginFragment_para_HomeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="user"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue=" " />
     </fragment>
     <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment" />
 </navigation>

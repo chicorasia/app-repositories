@@ -32,6 +32,24 @@ class HomeViewModel(
     fun hideProgressBar() {
         _progressBarVisible.value = false
     }
+
+
+    /**
+     * Esse campo dispara a navegação para o LoginFragment. Os métodos seguintes
+     * permitem alterar o valor e resetar o valor após a navegação.
+     */
+    private val _navegaParaLogin = MutableLiveData<Boolean>(false)
+    val navegaParaLogin : LiveData<Boolean>
+        get() = _navegaParaLogin
+
+    fun navegaParaLogin() {
+        _navegaParaLogin.value = true
+    }
+
+    fun doneNavegaParaLogin() {
+        _navegaParaLogin.value = false
+    }
+
     /**
      * Esse campo mantém o State do Flow. Foi usada a técnica de encapsulamento
      * padrão recomendada pela Google.

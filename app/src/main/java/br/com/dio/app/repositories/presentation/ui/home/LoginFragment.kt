@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.LoginFragmentBinding
@@ -22,12 +23,19 @@ class LoginFragment : Fragment() {
     private val binding: LoginFragmentBinding by lazy {
         LoginFragmentBinding.inflate(layoutInflater)
     }
+    private val args by navArgs<LoginFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        args.user?.let{
+            binding.loginUsernameEdt.setText(it) ?: ""
+        }
+
+
 
         initBtnEnviar()
         initNavegaParaHomeObserver()

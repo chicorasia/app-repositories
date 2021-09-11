@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.HomeFragmentBinding
@@ -42,7 +43,20 @@ class HomeFragment : Fragment() {
     ): View? {
 
         initBinding()
+        initNavegacaoLogin()
         return binding.root
+    }
+
+    private fun initNavegacaoLogin() {
+        mViewModel.navegaParaLogin.observe(viewLifecycleOwner) { navegaParaLogin ->
+            if(navegaParaLogin) {
+                val currentUser : String = UsuarioLogado.usuarioLogado ?: ""
+                UsuarioLogado.usuarioLogado = null
+                val directions = HomeFragmentDirections.actionGlobalLoginFragment()
+                directions.user = currentUser
+                findNavController().navigate(directions)
+            }
+        }
     }
 
     /**
@@ -50,8 +64,20 @@ class HomeFragment : Fragment() {
      */
     @SuppressLint("RestrictedApi")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        /**
+         * Essa primeira linha faz com que os itens do menu overflow
+         * sejam exibidos sempre com seus ícones.
+         */
         if (menu is MenuBuilder) (menu as MenuBuilder).setOptionalIconsVisible(true)
+
         inflater.inflate(R.menu.main_menu, menu)
+
+        menu.findItem(R.id.action_change_user).setOnMenuItemClickListener { menuItem ->
+            mViewModel.navegaParaLogin()
+            mViewModel.doneNavegaParaLogin()
+            true
+        }
+
         super.onCreateOptionsMenu(menu, inflater)
 
     }
@@ -72,7 +98,6 @@ class HomeFragment : Fragment() {
             mViewModel.getRepoList(it)
         }
         binding.homeRepoRv.adapter = adapter
-
         initRepoObserver(view)
     }
 
