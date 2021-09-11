@@ -16,11 +16,22 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **Clean Architecture**
 - **Versionamento segundo princípios de GitFlow.**
 
+****
+
 ## Versões
+
 ### V0.1
 - Lista os repositórios do usuário no github
 - Troca rápida da conta de usuário github
 - Solução estética básica
+
+****
+
+## Screenshots
+
+![Screenshot_1](C:\Users\chico\AndroidStudioProjects\app-repositories\Screenshot_1.png)
+
+![Screenshot_2](C:\Users\chico\AndroidStudioProjects\app-repositories\Screenshot_2.png)
 
 ****
 
