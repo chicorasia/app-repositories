@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.HomeFragmentBinding
 import br.com.dio.app.repositories.presentation.adapter.RepoListAdapter
 import com.google.android.material.snackbar.Snackbar
@@ -45,7 +46,9 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mViewModel.getRepoList("chicorasia")
+        UsuarioLogado.usuarioLogado?.let {
+            mViewModel.getRepoList(it)
+        }
         binding.homeRepoRv.adapter = adapter
 
         initRepoObserver(view)

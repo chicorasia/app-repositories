@@ -5,4 +5,5 @@
     <dimen name="layout_extra_padding">32dp</dimen>
     <dimen name="imageAvatarSize">88dp</dimen>
     <dimen name="card_margin">16dp</dimen>
+    <dimen name="margin">24dp</dimen>
 </resources>
