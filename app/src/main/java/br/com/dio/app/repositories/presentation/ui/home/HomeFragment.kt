@@ -1,10 +1,11 @@
 package br.com.dio.app.repositories.presentation.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.*
+import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.HomeFragmentBinding
 import br.com.dio.app.repositories.presentation.adapter.RepoListAdapter
@@ -25,6 +26,16 @@ class HomeFragment : Fragment() {
     }
     val adapter = RepoListAdapter()
 
+    /**
+     * Habilita o OptionsMenu nesse fragmento. Optei por não usar uma ActionBar
+     * geral porque o fragmento de visualização de detalhes de um Repo vai usar um
+     * layout de tela inteira, sem ActionBar ou AppBar.
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -32,6 +43,17 @@ class HomeFragment : Fragment() {
 
         initBinding()
         return binding.root
+    }
+
+    /**
+     * Infla o menu overflow
+     */
+    @SuppressLint("RestrictedApi")
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        if (menu is MenuBuilder) (menu as MenuBuilder).setOptionalIconsVisible(true)
+        inflater.inflate(R.menu.main_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+
     }
 
     /**
