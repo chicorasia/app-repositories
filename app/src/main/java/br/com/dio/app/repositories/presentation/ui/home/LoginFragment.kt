@@ -23,6 +23,11 @@ class LoginFragment : Fragment() {
     private val binding: LoginFragmentBinding by lazy {
         LoginFragmentBinding.inflate(layoutInflater)
     }
+
+    /**
+     * Esse atributo recebe os argumentos que vieram via
+     * Navigation Component
+     */
     private val args by navArgs<LoginFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -31,17 +36,24 @@ class LoginFragment : Fragment() {
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        args.user?.let{
-            binding.loginUsernameEdt.setText(it) ?: ""
-        }
-
-
-
+        initNomeUsuarioEdt()
         initBtnEnviar()
         initNavegaParaHomeObserver()
 
         return binding.root
 
+    }
+
+    /**
+     * Preenche o EditText com o nome de usuário (String) recebido via navArgs<>.
+     * É essencialmente cosmético porque, nesse momento, o UsuarioLogado já
+     * é null, mas melhora a experiência do usuário, que não precisa
+     * digitar novamente se não pretender trocar de conta.
+     */
+    private fun initNomeUsuarioEdt() {
+        args.user?.let {
+            binding.loginUsernameEdt.setText(it) ?: ""
+        }
     }
 
     /**

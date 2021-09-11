@@ -52,6 +52,6 @@ fun Chip.setLanguage(repo: Repo?) {
 @BindingAdapter("itemUpdateChip")
 fun Chip.setUpdate(repo: Repo?) {
     repo?.let{
-        text = repo.updatedAt.subSequence(0, 8)
+        text = repo.updatedAt.subSequence(0, 10)
     }
 }

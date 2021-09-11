@@ -47,6 +47,13 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+
+    /**
+     * Esse método inicializa o observador que dispara a navegação para a tela de login;
+     * Sempre que a navegação ocorre, o UsuarioLogado é resetado depois de ter seu valor
+     * atribuído ao "currentUser". Essa String é então passada para o LoginFragment como
+     * argumento.
+     */
     private fun initNavegacaoLogin() {
         mViewModel.navegaParaLogin.observe(viewLifecycleOwner) { navegaParaLogin ->
             if(navegaParaLogin) {

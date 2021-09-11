@@ -25,5 +25,9 @@
             app:nullable="true"
             android:defaultValue=" " />
     </fragment>
-    <action android:id="@+id/action_global_loginFragment" app:destination="@id/loginFragment" />
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:popUpTo="@id/loginFragment"
+        app:popUpToInclusive="true" />
 </navigation>
