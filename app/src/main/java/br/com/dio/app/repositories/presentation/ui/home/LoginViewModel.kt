@@ -18,13 +18,23 @@ class LoginViewModel : ViewModel() {
     val navegaParaHome: LiveData<Boolean>
         get() = _navegaParaHome
 
+    /**
+     * Inicializa o ViewModel com valor false para ficar no LoginFragment
+     */
     init {
         _navegaParaHome.value = UsuarioLogado.usuarioLogado != null
     }
 
+
+    /**
+     * Recebe um username da UI, atribui ao UsuarioLogado e dispara a
+     * navegação para o HomeFragment. Esse método precisa ser aprimorado com
+     * uma rotina de validação do nome de usuário junto à API.
+     */
     //TODO: adicionar validação de nome de usuário
-    fun setUsuarioLogado(user: String?) {
-        user?.let{
+    //TODO: mover para um use case
+    fun setUsuarioLogado(user: String) {
+        user.let{
             UsuarioLogado.usuarioLogado = it
             _navegaParaHome.value = true
         }

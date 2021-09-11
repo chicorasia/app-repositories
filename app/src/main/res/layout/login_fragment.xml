@@ -30,8 +30,11 @@
 
             <TextView
                 android:id="@+id/loginTv"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin"
+                android:textAlignment="center"
+                style="?attr/textAppearanceHeadline6"
                 android:text="@string/usuario_logado"
                 app:layout_constraintTop_toBottomOf="@id/loginAvatarIv"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +68,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

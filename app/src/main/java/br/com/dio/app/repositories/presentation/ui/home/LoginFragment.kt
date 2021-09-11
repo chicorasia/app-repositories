@@ -29,27 +29,36 @@ class LoginFragment : Fragment() {
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        /**
-         * Esse ClickListener aciona o método do ViewModel passando o
-         * nome de usuário do campo EditText como parâmetro.
-         */
-        binding.loginBtn.setOnClickListener {
-            val user = binding.loginUsernameEdt.text.toString()
-            mViewModel.setUsuarioLogado(user)
-        }
+        initBtnEnviar()
+        initNavegaParaHomeObserver()
 
-        /**
-         * Dispara a navegação para o HomeFragment
-         */
+        return binding.root
+
+    }
+
+    /**
+     * Observa o campo navegaParaHome do ViwModel e dispara a navegação para o HomeFragment
+     */
+    private fun initNavegaParaHomeObserver() {
         mViewModel.navegaParaHome.observe(viewLifecycleOwner) { navegaParaHome ->
-            if(navegaParaHome){
+            if (navegaParaHome) {
                 val directions = LoginFragmentDirections.vaiDeLoginFragmentParaHomeFragment()
                 findNavController().navigate(directions)
             }
         }
+    }
 
-        return binding.root
-
+    /**
+     * Esse método configura o ClickListener. Faz uma validação básica (se está preenchido) e
+     * aciona o método do ViewModel passando o nome de usuário do campo EditText como parâmetro.
+     */
+    private fun initBtnEnviar() {
+        binding.loginBtn.setOnClickListener {
+            val user = binding.loginUsernameEdt.text.toString()
+            if (!user.isNullOrBlank()) {
+                mViewModel.setUsuarioLogado(user)
+            }
+        }
     }
 
 }
