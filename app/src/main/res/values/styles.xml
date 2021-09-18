@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Esse arquivo define estilos personalizados a partir dos styles padrão do Android-->
 <resources>
     <style name="UserName" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="fontFamily">@font/quicksand_bold</item>
         <item name="android:fontFamily">@font/quicksand_bold</item>
+        <item name="android:textColor">@color/design_default_color_on_primary</item>
     </style>
-
     <style name="UserInfo" parent="TextAppearance.MaterialComponents.Body1">
         <item name="fontFamily">@font/open_sans</item>
         <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColor">@color/design_default_color_on_primary</item>
     </style>
 
 </resources>

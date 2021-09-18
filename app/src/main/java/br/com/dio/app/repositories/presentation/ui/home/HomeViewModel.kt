@@ -72,12 +72,11 @@ class HomeViewModel(
      */
     val repoSize = Transformations.map(repo) {
         if(it is State.Success) {
-            return@map "Possui ${it.list.size} repositórios públicos."
+            return@map it.list.size
         } else {
-            return@map ""
+            return@map 0
         }
     }
-
 
 
     /**

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <!--    Esse é um databinding layout que recebe duas variáveis (ViewModel e Owner)
+    e também importa a classe View para facilitar a manipulação da visibilidade
+    de elementos.-->
     <data>
+
         <variable
             name="viewModel"
             type="br.com.dio.app.repositories.presentation.ui.home.HomeViewModel" />
-        <import type="android.view.View"/>
+
         <variable
             name="owner"
             type="br.com.dio.app.repositories.data.model.Owner" />
+
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,44 +24,44 @@
         android:layout_height="match_parent"
         tools:context=".presentation.ui.home.HomeFragment">
 
-<!--        TODO: Mover as informações do usuário para um <include> -->
+        <!--        TODO: Mover as informações do usuário para um <include> -->
         <ImageView
             android:id="@+id/homeUserAvatarIv"
+            ownerUserAvatarIv="@{owner}"
             android:layout_width="@dimen/imageAvatarSize"
             android:layout_height="@dimen/imageAvatarSize"
             android:layout_margin="@dimen/margin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            ownerUserAvatarIv="@{owner}"
             android:background="@drawable/bg_circle"
             android:outlineProvider="background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/includeUserNameTv"
+            style="@style/UserName"
+            ownerUserNameTv="@{owner}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_bold"
-            tools:text="username"
-            ownerUserNameTv="@{owner}"
-            style="@style/UserName"
-            android:textColor="@color/design_default_color_on_primary"
             android:padding="@dimen/layout_half_padding"
             app:layout_constraintStart_toEndOf="@+id/homeUserAvatarIv"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="username" />
 
+        <!--        Aplica um string de formatação à contagem de repos do usuário-->
         <TextView
             android:id="@+id/includeUserInfoTv"
+            style="@style/UserInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:padding="@dimen/layout_half_padding"
-            android:text="@{viewModel.repoSize}"
-            style="@style/UserInfo"
-            android:textColor="@color/design_default_color_on_primary"
+            android:text="@{@string/repo_count_format(viewModel.repoSize)}"
+            android:visibility="@{viewModel.repoSize == 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@+id/homeUserAvatarIv"
             app:layout_constraintTop_toBottomOf="@+id/includeUserNameTv"
-            tools:text="Tem 32 repositórios públicos" />
+            tools:text="Possui 32 repositórios públicos" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/homeGuideline25"
@@ -69,24 +75,23 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toTopOf="@id/homeGuideline25"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/homeGuideline25"
             tools:listitem="@layout/item_repo" />
 
         <ProgressBar
             android:id="@+id/homeProgressBar"
             android:layout_width="@dimen/imageAvatarSize"
             android:layout_height="@dimen/imageAvatarSize"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:indeterminateTint="@color/green"
             android:visibility="@{viewModel.progressBarVisible ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible" />
-
-
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
