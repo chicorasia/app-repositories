@@ -32,20 +32,38 @@ class HomeFragment : Fragment() {
      * geral porque o fragmento de visualização de detalhes de um Repo vai usar um
      * layout de tela inteira, sem ActionBar ou AppBar.
      */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
 
+        initOptionMenu()
         initBinding()
         initNavegacaoLogin()
         initUserInfo()
         return binding.root
+    }
+
+    /**
+     * Infla o menu overflow
+     */
+    @SuppressLint("RestrictedApi")
+    private fun initOptionMenu() {
+        with(binding.homeToolbar) {
+            /**
+             * A inflação do menu tem que acontecer aqui dentro
+             * pra conseguir mostrar o ícone de troca de usuário
+             */
+            inflateMenu(R.menu.main_menu)
+            if (menu is MenuBuilder) (menu as MenuBuilder).setOptionalIconsVisible(true)
+            menu.findItem(R.id.action_change_user)
+                .setOnMenuItemClickListener { menuItem ->
+                    mViewModel.navegaParaLogin()
+                    mViewModel.doneNavegaParaLogin()
+                    true
+                }
+        }
     }
 
     /**
@@ -76,29 +94,6 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(directions)
             }
         }
-    }
-
-    /**
-     * Infla o menu overflow
-     */
-    @SuppressLint("RestrictedApi")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        /**
-         * Essa primeira linha faz com que os itens do menu overflow
-         * sejam exibidos sempre com seus ícones.
-         */
-        if (menu is MenuBuilder) (menu as MenuBuilder).setOptionalIconsVisible(true)
-
-        inflater.inflate(R.menu.main_menu, menu)
-
-        menu.findItem(R.id.action_change_user).setOnMenuItemClickListener { menuItem ->
-            mViewModel.navegaParaLogin()
-            mViewModel.doneNavegaParaLogin()
-            true
-        }
-
-        super.onCreateOptionsMenu(menu, inflater)
-
     }
 
     /**

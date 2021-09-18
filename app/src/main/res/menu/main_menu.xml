@@ -6,7 +6,6 @@
         android:id="@+id/action_change_user"
         android:icon="@drawable/ic_person"
         android:title="@string/action_change_user"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="never"
         />
 </menu>
