@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="repo"
             type="br.com.dio.app.repositories.data.model.Repo" />
@@ -31,70 +32,64 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/itemUserAvatarIv"
-                    android:layout_width="@dimen/imageAvatarSize"
-                    android:layout_height="@dimen/imageAvatarSize"
-                    itemUserAvatarIv="@{repo}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintTop_toBottomOf="parent"
-                    tools:src="@tools:sample/avatars" />
+                android:layout_height="match_parent"
+                android:paddingStart="@dimen/layout_half_padding"
+                android:paddingEnd="@dimen/layout_half_padding"
+                >
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/itemRepoNameTv"
                     style="?attr/textAppearanceHeadline6"
+                    itemRepoNameTv="@{repo}"
+                    android:ellipsize="end"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    itemRepoNameTv="@{repo}"
-                    android:layout_marginStart="@dimen/card_margin"
-                    app:layout_constraintStart_toEndOf="@id/itemUserAvatarIv"
-                    app:layout_constraintTop_toTopOf="@id/itemUserAvatarIv"
+                    app:fontFamily="@font/quicksand_bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     tools:text="@sample/repositories_cr.json/data/name" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/itemDescricaoTv"
                     style="?attr/textAppearanceBody2"
+                    itemDescricaoTv="@{repo}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    itemDescricaoTv="@{repo}"
-                    app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
-                    app:layout_constraintTop_toBottomOf="@id/itemRepoNameTv"
-                    app:layout_constraintEnd_toEndOf="parent"
                     android:ellipsize="end"
                     android:maxLines="2"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
+                    app:layout_constraintTop_toBottomOf="@id/itemRepoNameTv"
                     tools:text="@sample/repositories_cr.json/data/description" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/itemStarChip"
+                    itemStarChip="@{repo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    itemStarChip="@{repo}"
+                    app:chipIcon="@drawable/ic_stars"
                     app:layout_constraintStart_toStartOf="@id/itemRepoNameTv"
                     app:layout_constraintTop_toBottomOf="@id/itemDescricaoTv"
-                    app:chipIcon="@drawable/ic_stars"
                     tools:text="@sample/repositories_cr.json/data/stargazers_count" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/itemLanguageChip"
+                    itemLanguageChip="@{repo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    itemLanguageChip="@{repo}"
-                    tools:text="@sample/repositories_cr.json/data/language"
+                    app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip" />
+                    tools:text="@sample/repositories_cr.json/data/language" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/itemUpdateChip"
+                    itemUpdateChip="@{repo}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    itemUpdateChip="@{repo}"
-                    tools:text="@sample/repositories_cr.json/data/updated_at"
-                    app:layout_constraintStart_toEndOf="@id/itemStarChip"
+                    app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip"
                     app:layout_constraintEnd_toStartOf="@id/itemLanguageChip"
-                    app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip" />
+                    app:layout_constraintStart_toEndOf="@id/itemStarChip"
+                    tools:text="@sample/repositories_cr.json/data/updated_at" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

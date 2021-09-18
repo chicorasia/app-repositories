@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#324259</color>
-    <color name="primaryLightColor">#5d6d86</color>
-    <color name="primaryDarkColor">#081c30</color>
-    <color name="secondaryColor">#7ff2b1</color>
-    <color name="secondaryLightColor">#b3ffe3</color>
-    <color name="secondaryDarkColor">#4abf81</color>
-    <color name="primaryTextColor">#f1f1f1</color>
-    <color name="secondaryTextColor">#0f0f0f</color>
-    <color name="kotlinPurple">#a66895</color>
-    <color name="javaYellow">#f1a10c</color>
-    <color name="pythonBlue">#16a1a6</color>
-    <color name="otherGreen">#5ea87d</color>
-    <color name="htmlOrange">#f25e09</color>
+    <color name="cool_grey">#324259</color>
+    <color name="cool_grey_light">#5d6d86</color>
+    <color name="cool_grey_dark">#081c30</color>
+    <color name="green">#7ff2b1</color>
+    <color name="green_light">#b3ffe3</color>
+    <color name="green_dark">#4abf81</color>
+    <color name="grey_lightest">#f1f1f1</color>
+    <color name="grey_darkest">#0f0f0f</color>
+    <color name="kotlin_purple">#a66895</color>
+    <color name="java_yellow">#f1a10c</color>
+    <color name="python_blue">#16a1a6</color>
+    <color name="other_green">#5ea87d</color>
+    <color name="html_orange">#f25e09</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

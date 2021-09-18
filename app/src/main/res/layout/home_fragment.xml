@@ -8,21 +8,71 @@
             name="viewModel"
             type="br.com.dio.app.repositories.presentation.ui.home.HomeViewModel" />
         <import type="android.view.View"/>
-
+        <variable
+            name="owner"
+            type="br.com.dio.app.repositories.data.model.Owner" />
     </data>
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.ui.home.HomeFragment">
 
+<!--        TODO: Mover as informações do usuário para um <include> -->
+        <ImageView
+            android:id="@+id/homeUserAvatarIv"
+            android:layout_width="@dimen/imageAvatarSize"
+            android:layout_height="@dimen/imageAvatarSize"
+            android:layout_margin="@dimen/margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            ownerUserAvatarIv="@{owner}"
+            android:background="@drawable/bg_circle"
+            android:outlineProvider="background"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/includeUserNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
+            tools:text="username"
+            ownerUserNameTv="@{owner}"
+            style="@style/UserName"
+            android:textColor="@color/design_default_color_on_primary"
+            android:padding="@dimen/layout_half_padding"
+            app:layout_constraintStart_toEndOf="@+id/homeUserAvatarIv"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/includeUserInfoTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
+            android:padding="@dimen/layout_half_padding"
+            android:text="@{viewModel.repoSize}"
+            style="@style/UserInfo"
+            android:textColor="@color/design_default_color_on_primary"
+            app:layout_constraintStart_toEndOf="@+id/homeUserAvatarIv"
+            app:layout_constraintTop_toBottomOf="@+id/includeUserNameTv"
+            tools:text="Tem 32 repositórios públicos" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/homeGuideline25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.20" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/homeRepoRv"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="@id/homeGuideline25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_repo" />
 
         <ProgressBar
@@ -35,6 +85,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:visibility="@{viewModel.progressBarVisible ? View.VISIBLE : View.GONE}"
             tools:visibility="visible" />
+
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,7 +44,19 @@ class HomeFragment : Fragment() {
 
         initBinding()
         initNavegacaoLogin()
+        initUserInfo()
         return binding.root
+    }
+
+    /**
+     * Inicializa um observer para expor as informações do dono do repositório
+     */
+    private fun initUserInfo() {
+        mViewModel.owner.observe(viewLifecycleOwner) {
+            it?.let {
+                binding.owner = it
+            }
+        }
     }
 
 

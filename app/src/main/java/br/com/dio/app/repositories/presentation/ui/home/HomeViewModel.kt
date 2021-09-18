@@ -1,6 +1,7 @@
 package br.com.dio.app.repositories.presentation.ui.home
 
 import androidx.lifecycle.*
+import br.com.dio.app.repositories.data.model.Owner
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.ListUserRepositoriesUseCase
 import kotlinx.coroutines.flow.catch
@@ -33,6 +34,13 @@ class HomeViewModel(
         _progressBarVisible.value = false
     }
 
+    /**
+     * Esse campo matém as informações do dono dos repositórios (usuário ativo)
+     */
+
+    private val _owner = MutableLiveData<Owner>(null)
+    val owner: LiveData<Owner>
+        get() = _owner
 
     /**
      * Esse campo dispara a navegação para o LoginFragment. Os métodos seguintes
@@ -59,6 +67,20 @@ class HomeViewModel(
         get() = _repo
 
     /**
+     * Conta a quantidade de repositórios recebidos da API; está limitado ao máximo de
+     * repos retornado por página.
+     */
+    val repoSize = Transformations.map(repo) {
+        if(it is State.Success) {
+            return@map "Possui ${it.list.size} repositórios públicos."
+        } else {
+            return@map ""
+        }
+    }
+
+
+
+    /**
      * Essa sintaxe funciona porque, na superclasse UseCase<Param, Source> o operador
      * invoke aponta para a função execute(user: String). Equivale a escrever:
      *      listUserRepositoriesUseCase.execute(user)
@@ -75,6 +97,7 @@ class HomeViewModel(
                     _repo.postValue(State.Error(it))
                 }
                 .collect {
+                    _owner.postValue(it.first().owner)
                     _repo.postValue(State.Success(it))
                 }
         }
