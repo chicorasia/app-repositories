@@ -1,9 +1,11 @@
 package br.com.dio.app.repositories.domain
 
 import br.com.dio.app.repositories.core.UseCase
+import br.com.dio.app.repositories.data.model.Owner
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.repositories.RepoRepository
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 
 /**
  * Esse use case tem a função de buscar a lista de Repos no
