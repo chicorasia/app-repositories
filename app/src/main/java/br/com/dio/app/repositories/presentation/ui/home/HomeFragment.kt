@@ -27,18 +27,17 @@ class HomeFragment : Fragment() {
     }
     val adapter = RepoListAdapter()
 
-    /**
-     * Habilita o OptionsMenu nesse fragmento. Optei por não usar uma ActionBar
-     * geral porque o fragmento de visualização de detalhes de um Repo vai usar um
-     * layout de tela inteira, sem ActionBar ou AppBar.
-     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initOptionMenu()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
 
-        initOptionMenu()
+
         initBinding()
         initNavegacaoLogin()
         initUserInfo()

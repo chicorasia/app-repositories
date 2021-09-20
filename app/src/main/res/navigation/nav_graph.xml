@@ -18,7 +18,10 @@
         tools:layout="@layout/login_fragment" >
         <action
             android:id="@+id/vaiDeLoginFragment_para_HomeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="user"
             app:argType="string"
@@ -28,6 +31,6 @@
     <action
         android:id="@+id/action_global_loginFragment"
         app:destination="@id/loginFragment"
-        app:popUpTo="@id/loginFragment"
+        app:launchSingleTop="false"
         app:popUpToInclusive="true" />
 </navigation>

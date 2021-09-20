@@ -33,6 +33,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
+        binding.navController = findNavController()
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 

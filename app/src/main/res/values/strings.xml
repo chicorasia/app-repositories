@@ -3,7 +3,8 @@
     <string name="action_change_user">Trocar usuário</string>
     <string name="username_hint">Github username</string>
     <string name="btn_submit">enviar</string>
-    <string name="usuario_logado">Digite um nome de usuário para consultar os repositórios no github</string>
+    <string name="usuario_logado">Digite o nome de usuário github para começar</string>
     <string name="repo_count_format">Possui %d repositórios públicos.</string>
     <string name="lista_repo_title">Lista de Repositórios</string>
+    <string name="welcome">welcome,\nbienvenue,\nbem-vindos</string>
 </resources>

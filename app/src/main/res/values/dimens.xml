@@ -6,4 +6,7 @@
     <dimen name="imageAvatarSize">88dp</dimen>
     <dimen name="card_margin">16dp</dimen>
     <dimen name="margin">24dp</dimen>
+    <dimen name="avatar_bigger">112dp</dimen>
+    <dimen name="material_btn_dimension">48dp</dimen>
+    <dimen name="one_and_half_margin">48dp</dimen>
 </resources>
