@@ -10,6 +10,8 @@ import androidx.navigation.fragment.navArgs
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.LoginFragmentBinding
+import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -43,6 +45,12 @@ class LoginFragment : Fragment() {
         initNomeUsuarioEdt()
         initBtnEnviar()
         initNavegaParaHomeObserver()
+
+        mViewModel.snackBar.observe(viewLifecycleOwner) {
+            it?.let {
+                Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
+            }
+        }
 
         return binding.root
 

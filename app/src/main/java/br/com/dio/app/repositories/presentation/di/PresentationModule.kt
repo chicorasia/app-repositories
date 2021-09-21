@@ -20,7 +20,7 @@ object PresentationModule {
     private fun viewModelModule() : Module {
         return module {
             viewModel { HomeViewModel(get()) }
-            viewModel { LoginViewModel() }
+            viewModel { LoginViewModel(get()) }
         }
     }
 }

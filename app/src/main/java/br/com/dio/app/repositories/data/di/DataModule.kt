@@ -4,6 +4,8 @@ import android.util.Log
 import br.com.dio.app.repositories.data.repositories.RepoRepository
 import br.com.dio.app.repositories.data.repositories.RepoRepositoryImpl
 import br.com.dio.app.repositories.data.services.GithubService
+import br.com.dio.app.repositories.data.user.UserInfo
+import br.com.dio.app.repositories.data.user.UserInfoImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -32,7 +34,7 @@ object DataModule {
      * uma única chamada. Isso evita duplicação de código na classe App.
      */
     fun load() {
-        loadKoinModules(networkModule() + repositoriesModule())
+        loadKoinModules(networkModule() + repositoriesModule() + userModule())
     }
 
     /**
@@ -77,6 +79,16 @@ object DataModule {
     private fun repositoriesModule() : Module {
         return module {
             single<RepoRepository> { RepoRepositoryImpl(get()) }
+        }
+    }
+
+    /**
+     * Esse método instancia o UserInforImpl; aqui pode ser usada uma factory
+     * normal - não vejo necessidade de tê-lo como um singleton.
+     */
+    private fun userModule() : Module {
+        return module {
+            factory<UserInfo> { UserInfoImpl(get()) }
         }
     }
 
