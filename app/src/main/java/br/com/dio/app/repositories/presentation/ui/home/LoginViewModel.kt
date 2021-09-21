@@ -29,6 +29,10 @@ class LoginViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
         _navegaParaHome.value = UsuarioLogado.usuarioLogado != null
     }
 
+    /**
+     * Esse campo mantém o estado do User conforme o resultado
+     * da consulta à API, por meio do GetUserUseCase
+     */
     private val _user = MutableLiveData<UserState>()
     val user: LiveData<UserState>
         get() = _user

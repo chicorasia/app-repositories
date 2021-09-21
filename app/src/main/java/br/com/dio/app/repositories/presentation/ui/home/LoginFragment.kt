@@ -45,15 +45,22 @@ class LoginFragment : Fragment() {
         initNomeUsuarioEdt()
         initBtnEnviar()
         initNavegaParaHomeObserver()
+        initSnackbar()
 
+        return binding.root
+
+    }
+
+    /**
+     * Inicializa um observer do campo snackBar; exibe uma mensagem de
+     * erro quando ocorre falha na validação do usuário.
+     */
+    private fun initSnackbar() {
         mViewModel.snackBar.observe(viewLifecycleOwner) {
             it?.let {
                 Snackbar.make(binding.root, it, Snackbar.LENGTH_LONG).show()
             }
         }
-
-        return binding.root
-
     }
 
     /**
@@ -69,7 +76,7 @@ class LoginFragment : Fragment() {
     }
 
     /**
-     * Observa o campo navegaParaHome do ViwModel e dispara a navegação para o HomeFragment
+     * Observa o campo navegaParaHome do ViewModel e dispara a navegação para o HomeFragment
      */
     private fun initNavegaParaHomeObserver() {
         mViewModel.navegaParaHome.observe(viewLifecycleOwner) { navegaParaHome ->
