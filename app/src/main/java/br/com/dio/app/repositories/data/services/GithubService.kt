@@ -13,7 +13,7 @@ interface GithubService {
      * máximo de resultados por página que a API permite. O ideal é trabalhar com
      * queries paginadas conforme o usuário rola.
      */
-    @GET("users/{user}/repos?per_page=100")
+    @GET("users/{user}/repos")
     suspend fun listRepositories(@Path("user") user:String) : List<Repo>
 
     /**

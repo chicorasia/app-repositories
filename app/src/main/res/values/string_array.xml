@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    Esse string array é usado para trocar o texto da tela de login-->
+    <string-array name="login_info_array">
+        <item>Digite o nome de usuário github para começar</item>
+        <item>Você está prestes a trocar de usuário. Deseja continuar?</item>
+    </string-array>
+</resources>

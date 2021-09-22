@@ -13,8 +13,8 @@
             type="br.com.dio.app.repositories.presentation.ui.home.HomeViewModel" />
 
         <variable
-            name="owner"
-            type="br.com.dio.app.repositories.data.model.Owner" />
+            name="user"
+            type="br.com.dio.app.repositories.data.model.User" />
 
         <import type="android.view.View" />
     </data>
@@ -36,7 +36,7 @@
         <!--        TODO: Mover as informações do usuário para um <include> -->
         <ImageView
             android:id="@+id/homeUserAvatarIv"
-            ownerUserAvatarIv="@{owner}"
+            userAvatarIv="@{user}"
             android:layout_width="@dimen/imageAvatarSize"
             android:layout_height="@dimen/imageAvatarSize"
             android:layout_margin="@dimen/margin"
@@ -49,7 +49,7 @@
         <TextView
             android:id="@+id/includeUserNameTv"
             style="@style/UserName"
-            ownerUserNameTv="@{owner}"
+            userNameTv="@{user}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/quicksand_bold"
@@ -66,8 +66,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans"
             android:padding="@dimen/layout_half_padding"
-            android:text="@{@string/repo_count_format(viewModel.repoSize)}"
-            android:visibility="@{viewModel.repoSize == 0 ? View.GONE : View.VISIBLE}"
+            android:text="@{@string/repo_count_format(user.publicRepos)}"
+            android:visibility="@{user.publicRepos == 0 ? View.GONE : View.VISIBLE}"
             app:layout_constraintStart_toEndOf="@+id/homeUserAvatarIv"
             app:layout_constraintTop_toBottomOf="@+id/includeUserNameTv"
             tools:text="Possui 32 repositórios públicos" />

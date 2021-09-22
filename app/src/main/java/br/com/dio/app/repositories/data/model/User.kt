@@ -5,7 +5,9 @@ import com.squareup.moshi.Json
 data class User(
     val login: String,
     @Json(name = "avatar_url")
-    val avatar_url: String,
+    val avatarUrl: String,
     @Json(name = "public_repos")
     val publicRepos: Int
-)
+) {
+    val repoCount = publicRepos.toString()
+}

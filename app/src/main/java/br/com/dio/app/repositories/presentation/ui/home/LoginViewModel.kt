@@ -6,7 +6,6 @@ import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.domain.GetUserUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
@@ -66,7 +65,7 @@ class LoginViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
                 }
                 .collect {
                     _user.postValue(UserState.Success(it))
-                    UsuarioLogado.usuarioLogado = it.login
+                    UsuarioLogado.usuarioLogado = it
                     _navegaParaHome.value = true
                 }
         }
@@ -83,7 +82,6 @@ class LoginViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
         data class Success(val user: User) : UserState()
 
         data class Failure(val error: Throwable) : UserState()
-
 
     }
 

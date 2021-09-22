@@ -41,6 +41,7 @@ class LoginFragment : Fragment() {
         binding.navController = findNavController()
         binding.viewModel = mViewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.user = UsuarioLogado.previousUser
 
         initNomeUsuarioEdt()
         initBtnEnviar()
