@@ -10,6 +10,5 @@ object UsuarioLogado {
 
     var usuarioLogado: User? = null
     var previousUser: User? = null
-    val username = usuarioLogado?.login
 
 }

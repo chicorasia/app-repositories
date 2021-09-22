@@ -1,7 +1,9 @@
 package br.com.dio.app.repositories.presentation.ui.home
 
-import androidx.lifecycle.*
-import br.com.dio.app.repositories.data.model.Owner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
@@ -69,19 +71,6 @@ class HomeViewModel(
         get() = _repo
 
     /**
-     * Conta a quantidade de repositórios recebidos da API; está limitado ao máximo de
-     * repos retornado por página.
-     */
-    val repoSize = Transformations.map(repo) {
-        if(it is State.Success) {
-            return@map it.list.size
-        } else {
-            return@map 0
-        }
-    }
-
-
-    /**
      * Essa sintaxe funciona porque, na superclasse UseCase<Param, Source> o operador
      * invoke aponta para a função execute(user: String). Equivale a escrever:
      *      listUserRepositoriesUseCase.execute(user)
@@ -99,7 +88,6 @@ class HomeViewModel(
                     _repo.postValue(State.Error(it))
                 }
                 .collect {
-//                    _owner.postValue(it.first().owner)
                     _repo.postValue(State.Success(it))
                 }
         }
