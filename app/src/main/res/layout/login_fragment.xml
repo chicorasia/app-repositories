@@ -5,6 +5,9 @@
 
     <data>
         <variable
+            name="user"
+            type="br.com.dio.app.repositories.data.model.User" />
+        <variable
             name="viewModel"
             type="br.com.dio.app.repositories.presentation.ui.home.LoginViewModel" />
         <variable
@@ -39,19 +42,22 @@
                 android:layout_width="@dimen/avatar_bigger"
                 android:layout_height="112dp"
                 android:layout_marginTop="@dimen/margin"
-                android:src="@drawable/ic__avatar_placeholder"
+                userAvatarIv="@{user}"
+                tools:src="@drawable/ic__avatar_placeholder"
+                android:background="@drawable/bg_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/loginCloseBtn"
-                app:tint="@color/design_default_color_on_primary" />
+                />
 
             <TextView
                 android:id="@+id/loginUsernameTv"
                 style="@style/UserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/welcome"
+                userNameLogin="@{user}"
                 android:textAlignment="center"
+                tools:text="@string/welcome"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/loginAvatarIv" />

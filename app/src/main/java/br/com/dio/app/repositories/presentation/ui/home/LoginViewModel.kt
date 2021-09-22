@@ -66,7 +66,7 @@ class LoginViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
                 }
                 .collect {
                     _user.postValue(UserState.Success(it))
-                    UsuarioLogado.usuarioLogado = it.login
+                    UsuarioLogado.usuarioLogado = it
                     _navegaParaHome.value = true
                 }
         }

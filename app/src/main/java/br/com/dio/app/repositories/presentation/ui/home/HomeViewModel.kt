@@ -3,6 +3,8 @@ package br.com.dio.app.repositories.presentation.ui.home
 import androidx.lifecycle.*
 import br.com.dio.app.repositories.data.model.Owner
 import br.com.dio.app.repositories.data.model.Repo
+import br.com.dio.app.repositories.data.model.User
+import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.domain.ListUserRepositoriesUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -38,9 +40,9 @@ class HomeViewModel(
      * Esse campo matém as informações do dono dos repositórios (usuário ativo)
      */
 
-    private val _owner = MutableLiveData<Owner>(null)
-    val owner: LiveData<Owner>
-        get() = _owner
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User>
+        get() = _user
 
     /**
      * Esse campo dispara a navegação para o LoginFragment. Os métodos seguintes
@@ -91,12 +93,13 @@ class HomeViewModel(
             listUserRepositoriesUseCase(user)
                 .onStart {
                     _repo.postValue(State.Loading)
+                    _user.postValue(UsuarioLogado.usuarioLogado)
                 }
                 .catch {
                     _repo.postValue(State.Error(it))
                 }
                 .collect {
-                    _owner.postValue(it.first().owner)
+//                    _owner.postValue(it.first().owner)
                     _repo.postValue(State.Success(it))
                 }
         }

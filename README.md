@@ -5,6 +5,7 @@ App desenvolvido como projeto final do módulo *Criando um App para Apresentar s
 Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnologias e soluções:
 
 - **Layout funcional e amigável**. Telas com layout elegante e funcional, aplicando melhores práticas de UI/UX e valorizando as informações do usuário.
+- **Tela de entrada / troca de usuário**. Com instruções para entrada dos dados e validação junto à API.
 - **Verificação de usuário**. O app verifica as informações (username) do usuário no endpoint `users/{username}` da API e somente entra na tela principal após a validação.
 - **Estética  *on brand***. Cores, fontes e estilo visual conforme projeto gráfico do app e sua "marca".
 - **DataBinding e Listener Bindings**. Adotei essas soluções, sempre que possível, para reduzir o acoplamento do código e ter mais flexibilidade. A visibilidade de componentes é controlada por variáveis do ViewModel.
@@ -36,6 +37,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 ![Screenshot_1](Screenshot_1.png)
 
 ![Screenshot_2](Screenshot_2.png)
+
 
 ****
 

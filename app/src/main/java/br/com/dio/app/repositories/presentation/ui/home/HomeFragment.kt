@@ -69,9 +69,9 @@ class HomeFragment : Fragment() {
      * Inicializa um observer para expor as informações do dono do repositório
      */
     private fun initUserInfo() {
-        mViewModel.owner.observe(viewLifecycleOwner) {
+        mViewModel.user.observe(viewLifecycleOwner) {
             it?.let {
-                binding.owner = it
+                binding.user = it
             }
         }
     }
@@ -86,8 +86,10 @@ class HomeFragment : Fragment() {
     private fun initNavegacaoLogin() {
         mViewModel.navegaParaLogin.observe(viewLifecycleOwner) { navegaParaLogin ->
             if(navegaParaLogin) {
-                val currentUser : String = UsuarioLogado.usuarioLogado ?: ""
-                UsuarioLogado.usuarioLogado = null
+                val currentUser : String = UsuarioLogado.usuarioLogado?.login ?: ""
+                UsuarioLogado.previousUser = UsuarioLogado.usuarioLogado.also {
+                    UsuarioLogado.usuarioLogado = null
+                }
                 val directions = HomeFragmentDirections.actionGlobalLoginFragment()
                 directions.user = currentUser
                 findNavController().navigate(directions)
@@ -108,7 +110,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         UsuarioLogado.usuarioLogado?.let {
-            mViewModel.getRepoList(it)
+            mViewModel.getRepoList(it.login)
         }
         binding.homeRepoRv.adapter = adapter
         initRepoObserver(view)
