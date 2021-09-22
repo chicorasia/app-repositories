@@ -36,6 +36,9 @@ fun TextView.setRepoName(user: User?) {
     }
 }
 
+/**
+ * Esse adapter não está bem resolvido.
+ */
 @BindingAdapter("userRepoCount")
 fun TextView.setRepoCount(user: User?) : Int {
     return user?.let {
@@ -50,5 +53,19 @@ fun TextView.setUserName(user: User?) {
     }
     if (user == null) {
         text = resources.getText(R.string.welcome)
+    }
+}
+
+/**
+ * Esse adapter seleciona o texto da tela inicial a partir de um
+ * array de strings conforme a situação do User.
+ */
+@BindingAdapter("userInfoLogin")
+fun TextView.setInfo(user: User?) {
+    text = if (user == null) {
+        resources.getStringArray(R.array.login_info_array)[0]
+    }
+    else {
+        resources.getStringArray(R.array.login_info_array)[1]
     }
 }

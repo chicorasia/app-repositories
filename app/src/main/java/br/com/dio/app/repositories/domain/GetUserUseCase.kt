@@ -22,4 +22,5 @@ class GetUserUseCase(private val userInfo: UserInfo) : UseCase<String, User>() {
         }
     }
 
+
 }
