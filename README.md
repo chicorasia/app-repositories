@@ -10,6 +10,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **Estética  *on brand***. Cores, fontes e estilo visual conforme projeto gráfico do app e sua "marca".
 - **Uso avançado de string resources**. Uso de *Strings* para a formatação de texto e *string arrays* para a seleção contextual da String.
 - ***Chips* expressivos**. Esses elementos da UI são deixados mais comunicativos por meio do uso de cor, ícone e texto. Foi usado `Map<K, V>` para manter as constantes. Isso evita o acoplamento do código do *BindingAdapter* e facilita a adição de mais linguagens e cores.
+- **Data do último push**. Usa um Chip para apresentar a data do último push, formatada para o padrão brasileiro.  
 - **DataBinding e Listener Bindings**. Adotei essas soluções, sempre que possível, para reduzir o acoplamento do código e ter mais flexibilidade. A visibilidade de componentes é controlada por variáveis do ViewModel.
 - **BindingAdapters**. O DataBinding é facilitado por meio dos BindingAdapters, que convertem dados e configuram as views a partir dos dados da entidade. 
 - **Boas práticas de uso de estilos, dimensions, etc.** Procurei adotar melhores práticas para a padronização dos componentes visuais nos arquivos XML, tais como o uso de estilos standard do Material Design, extração de atributos @dimen e @string e outras ferramentas, visando a uniformidade, acessibilidade e manutenabilidade do app.
