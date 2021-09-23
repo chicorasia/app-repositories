@@ -6,6 +6,7 @@
     <color name="green">#7ff2b1</color>
     <color name="green_light">#b3ffe3</color>
     <color name="green_dark">#4abf81</color>
+    <color name="blue_muted">#3C619B</color>
     <color name="grey_lightest">#f1f1f1</color>
     <color name="grey_darkest">#0f0f0f</color>
     <color name="kotlin_purple">#a66895</color>

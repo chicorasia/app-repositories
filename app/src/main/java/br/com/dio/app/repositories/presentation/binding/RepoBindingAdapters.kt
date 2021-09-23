@@ -1,12 +1,20 @@
 package br.com.dio.app.repositories.presentation
 
+import android.os.Build
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.presentation.binding.chipColorMap
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * Esse arquivo mantém vários adaptadores para fazer o binding
@@ -62,10 +70,19 @@ fun Chip.setLanguage(repo: Repo?) {
     }
 }
 
+/**
+ * Esse adapter converte a data em formato String usando a classe Instant
+ * e depois formata para o padrão dd-mm-aaaa.
+ */
+@RequiresApi(Build.VERSION_CODES.O)
 @BindingAdapter("itemUpdateChip")
 fun Chip.setUpdate(repo: Repo?) {
-    repo?.let {
-        text = repo.updatedAt.subSequence(0, 10)
+    val formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withZone(ZoneId.from(ZoneOffset.UTC))
+    with(formatter) {
+        repo?.let {
+            val date = Instant.parse(repo.updatedAt)
+            text = this.format(date)
+        }
     }
 }
 
