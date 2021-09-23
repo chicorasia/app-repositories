@@ -70,14 +70,19 @@ fun Chip.setLanguage(repo: Repo?) {
     }
 }
 
+/**
+ * Esse adapter converte a data em formato String usando a classe Instant
+ * e depois formata para o padrão dd-mm-aaaa.
+ */
 @RequiresApi(Build.VERSION_CODES.O)
 @BindingAdapter("itemUpdateChip")
 fun Chip.setUpdate(repo: Repo?) {
     val formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withZone(ZoneId.from(ZoneOffset.UTC))
-    repo?.let {
-        val date = Instant.parse(repo.updatedAt)
-        val dataFormatada = formatter.format(date)
-        text = dataFormatada
+    with(formatter) {
+        repo?.let {
+            val date = Instant.parse(repo.updatedAt)
+            text = this.format(date)
+        }
     }
 }
 
