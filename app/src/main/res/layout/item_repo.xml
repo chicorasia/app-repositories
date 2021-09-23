@@ -85,6 +85,8 @@
                 <com.google.android.material.chip.Chip
                     android:id="@+id/itemUpdateChip"
                     itemUpdateChip="@{repo}"
+                    app:chipIcon="@drawable/ic_push"
+                    app:chipIconTint="@color/blue_muted"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toBottomOf="@id/itemLanguageChip"

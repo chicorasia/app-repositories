@@ -1,12 +1,20 @@
 package br.com.dio.app.repositories.presentation
 
+import android.os.Build
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.presentation.binding.chipColorMap
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 /**
  * Esse arquivo mantém vários adaptadores para fazer o binding
@@ -62,10 +70,14 @@ fun Chip.setLanguage(repo: Repo?) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @BindingAdapter("itemUpdateChip")
 fun Chip.setUpdate(repo: Repo?) {
+    val formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withZone(ZoneId.from(ZoneOffset.UTC))
     repo?.let {
-        text = repo.updatedAt.subSequence(0, 10)
+        val date = Instant.parse(repo.updatedAt)
+        val dataFormatada = formatter.format(date)
+        text = dataFormatada
     }
 }
 
