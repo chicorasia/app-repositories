@@ -7,6 +7,7 @@ import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import br.com.dio.app.repositories.R
+import br.com.dio.app.repositories.core.GithubApiFilter
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.HomeFragmentBinding
 import br.com.dio.app.repositories.presentation.adapter.RepoListAdapter
@@ -26,6 +27,7 @@ class HomeFragment : Fragment() {
         HomeFragmentBinding.inflate(layoutInflater)
     }
     val adapter = RepoListAdapter()
+    val user = UsuarioLogado.usuarioLogado
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +64,26 @@ class HomeFragment : Fragment() {
                     mViewModel.doneNavegaParaLogin()
                     true
                 }
+
+            /**
+             * Vinculando as buscas à API aos itens do menu.
+             */
+            menu.findItem(R.id.action_sort_date)
+                .setOnMenuItemClickListener { menuItem ->
+                    user?.let{
+                        mViewModel.getRepoList(it.login,
+                        GithubApiFilter.SORT_BY_PUSHED)
+                    }
+                    true
+                }
+            menu.findItem(R.id.action_sort_name)
+                .setOnMenuItemClickListener { menuItem ->
+                    user?.let{
+                        mViewModel.getRepoList(it.login,
+                            GithubApiFilter.SORT_BY_NAME)
+                    }
+                    true
+                }
         }
     }
 
@@ -85,9 +107,9 @@ class HomeFragment : Fragment() {
      */
     private fun initNavegacaoLogin() {
         mViewModel.navegaParaLogin.observe(viewLifecycleOwner) { navegaParaLogin ->
-            if(navegaParaLogin) {
-                val currentUser : String = UsuarioLogado.usuarioLogado?.login ?: ""
-                UsuarioLogado.previousUser = UsuarioLogado.usuarioLogado.also {
+            if (navegaParaLogin) {
+                val currentUser: String = user?.login ?: ""
+                UsuarioLogado.previousUser = user.also {
                     UsuarioLogado.usuarioLogado = null
                 }
                 val directions = HomeFragmentDirections.actionGlobalLoginFragment()
@@ -109,8 +131,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        UsuarioLogado.usuarioLogado?.let {
-            mViewModel.getRepoList(it.login)
+        user?.let {
+            mViewModel.getRepoList(it.login, GithubApiFilter.SORT_BY_NAME)
         }
         binding.homeRepoRv.adapter = adapter
         initRepoObserver(view)

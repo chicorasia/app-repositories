@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.dio.app.repositories.core.GithubApiFilter
 import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
@@ -71,9 +72,6 @@ class HomeViewModel(
     val repo: LiveData<State>
         get() = _repo
 
-    // Hardcoded for testing only!
-    private val sorting = "full_name"
-
     /**
      * Essa sintaxe funciona porque, na superclasse UseCase<Param, Source> o operador
      * invoke aponta para a função execute(user: String). Equivale a escrever:
@@ -81,9 +79,9 @@ class HomeViewModel(
      * O retorno dessa função é um Flow<List<Repo>>; flow possui três estados possíveis
      * que devem ser tratados e atribuídos ao _repo: onStart{ }, catch{ } e collect{ }.
      */
-    fun getRepoList(user: String) {
+    fun getRepoList(user: String, sorting: GithubApiFilter) {
         viewModelScope.launch {
-            listUserRepositoriesUseCase(Query(user = user, sorting = sorting))
+            listUserRepositoriesUseCase(Query(user = user, sorting = sorting.string))
                 .onStart {
                     _repo.postValue(State.Loading)
                     _user.postValue(UsuarioLogado.usuarioLogado)
