@@ -13,6 +13,7 @@
         <variable
             name="navController"
             type="androidx.navigation.NavController" />
+        <import type="android.view.View"/>
     </data>
 
     <FrameLayout
@@ -32,6 +33,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:src="@drawable/ic_close"
+                android:visibility="@{user == null ? View.INVISIBLE : View.VISIBLE}"
                 android:onClick="@{() -> navController.popBackStack()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
