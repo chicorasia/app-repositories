@@ -1,6 +1,6 @@
 # App-Repositories by Chico Rasia 💻🌎
 
-App desenvolvido como projeto final do módulo *Criando um App para Apresentar seu Portfólio do GitHub*, instrutor Ezequiel Messore, bootcamp Inter Android Developer na Digital Innovation One.
+App desenvolvido como projeto final do módulo ***Criando um App para Apresentar seu Portfólio do GitHub***, instrutor Ezequiel Messore, bootcamp Inter Android Developer na Digital Innovation One.
 
 Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnologias e soluções:
 
@@ -28,6 +28,15 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 ****
 
 ## Versões
+
+### V0.2
+- Validação de usuário junto à API
+- Ordenação de resultados por nome do Repo ou por data do último *push*
+- Destaque para as informações do usuário
+- Destaque para a linguagem predominante de cada Repo  
+- Layout mais funcional e comunicativo
+- Estética *on-brand*
+
 
 ### V0.1
 
