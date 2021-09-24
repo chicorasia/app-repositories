@@ -1,10 +1,8 @@
 package br.com.dio.app.repositories.data.repositories
 
-import br.com.dio.app.repositories.core.RepoQuery
+import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.Repo
-import br.com.dio.app.repositories.data.services.GithubService
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 /**
  * Essa interface abstrai a implementação de um RepoRepository; essa é uma
@@ -14,7 +12,7 @@ import kotlinx.coroutines.flow.flow
  */
 interface RepoRepository {
 
-    suspend fun listRepositories(param: RepoQuery) : Flow<List<Repo>>
+    suspend fun listRepositories(param: Query) : Flow<List<Repo>>
 
 }
 

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import br.com.dio.app.repositories.core.RepoQuery
+import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
@@ -83,7 +83,7 @@ class HomeViewModel(
      */
     fun getRepoList(user: String) {
         viewModelScope.launch {
-            listUserRepositoriesUseCase(RepoQuery(user = user, sorting = sorting))
+            listUserRepositoriesUseCase(Query(user = user, sorting = sorting))
                 .onStart {
                     _repo.postValue(State.Loading)
                     _user.postValue(UsuarioLogado.usuarioLogado)

@@ -12,10 +12,12 @@ interface GithubService {
     /**
      * Esse endpoint acessa a lista de repositórios do usuário. Retorna a
      * quantidade padrão de 30 resultados por página.
+     * O valor null para o parâmetro sorting é seguro e não
+     * causa erros na API.
      */
     @GET("users/{user}/repos?sort=sorting")
     suspend fun listRepositories(@Path("user") user:String,
-                                 @Query("sort") sorting: String) : List<Repo>
+                                 @Query("sort") sorting: String?) : List<Repo>
 
     /**
      * Esse endpoint acessa as informações básicas do usuário. Optei por manter a separação
