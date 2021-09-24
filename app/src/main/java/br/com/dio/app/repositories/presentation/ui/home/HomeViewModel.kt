@@ -81,7 +81,7 @@ class HomeViewModel(
      */
     fun getRepoList(user: String, sorting: GithubApiFilter) {
         viewModelScope.launch {
-            listUserRepositoriesUseCase(Query(user = user, sorting = sorting.string))
+            listUserRepositoriesUseCase(Query(user = user, sorting = sorting.sortby))
                 .onStart {
                     _repo.postValue(State.Loading)
                     _user.postValue(UsuarioLogado.usuarioLogado)

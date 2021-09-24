@@ -66,7 +66,9 @@ class HomeFragment : Fragment() {
                 }
 
             /**
-             * Vinculando as buscas à API aos itens do menu.
+             * Vinculando as buscas à API aos itens do menu. Cada item
+             * dispara uma nova busca com a string adequada definida
+             * na enum GithubApiFilter
              */
             menu.findItem(R.id.action_sort_date)
                 .setOnMenuItemClickListener { menuItem ->
