@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.dio.app.repositories.core.GithubApiFilter
+import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
@@ -77,9 +79,9 @@ class HomeViewModel(
      * O retorno dessa função é um Flow<List<Repo>>; flow possui três estados possíveis
      * que devem ser tratados e atribuídos ao _repo: onStart{ }, catch{ } e collect{ }.
      */
-    fun getRepoList(user: String) {
+    fun getRepoList(user: String, sorting: GithubApiFilter) {
         viewModelScope.launch {
-            listUserRepositoriesUseCase(user)
+            listUserRepositoriesUseCase(Query(user = user, sorting = sorting.sortby))
                 .onStart {
                     _repo.postValue(State.Loading)
                     _user.postValue(UsuarioLogado.usuarioLogado)

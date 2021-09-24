@@ -5,16 +5,19 @@ import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface GithubService {
 
     /**
-     * Um hack rápido para retornar mais repos por consulta; 100 é o limite
-     * máximo de resultados por página que a API permite. O ideal é trabalhar com
-     * queries paginadas conforme o usuário rola.
+     * Esse endpoint acessa a lista de repositórios do usuário. Retorna a
+     * quantidade padrão de 30 resultados por página.
+     * O valor null para o parâmetro sorting é seguro e não
+     * causa erros na API.
      */
-    @GET("users/{user}/repos")
-    suspend fun listRepositories(@Path("user") user:String) : List<Repo>
+    @GET("users/{user}/repos?sort=sorting")
+    suspend fun listRepositories(@Path("user") user:String,
+                                 @Query("sort") sorting: String?) : List<Repo>
 
     /**
      * Esse endpoint acessa as informações básicas do usuário. Optei por manter a separação

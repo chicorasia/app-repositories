@@ -1,6 +1,7 @@
 package br.com.dio.app.repositories.presentation.ui.home
 
 import androidx.lifecycle.*
+import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.domain.GetUserUseCase
@@ -56,7 +57,7 @@ class LoginViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
      */
     fun setUsuarioLogado(user: String) {
         viewModelScope.launch {
-            userUseCase(user)
+            userUseCase(Query(user))
                 .onStart {
                     _user.postValue(UserState.NoUser)
                 }
