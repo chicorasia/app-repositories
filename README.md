@@ -5,8 +5,9 @@ App desenvolvido como projeto final do módulo *Criando um App para Apresentar s
 Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnologias e soluções:
 
 - **Layout funcional e amigável**. Telas com layout elegante e funcional, aplicando melhores práticas de UI/UX e valorizando as informações do usuário.
-- **Tela de entrada / troca de usuário**. Com instruções para entrada dos dados e validação junto à API.
-- **Verificação de usuário**. O app verifica as informações (username) do usuário no endpoint `users/{username}` da API e somente entra na tela principal após a validação.
+- **Tela de entrada / troca de usuário**. Com instruções para entrada dos dados e validação junto à API; erros são informados por meio de `SnackBar`.
+- **Verificação de usuário**. O app verifica as informações (username) do usuário no endpoint `users/{username}` da API e somente entra na tela principal após a validação. Essa funcionalidade também possibilita obter mais informações sobre o usuário como, por exemplo, a contagem de repositórios públicos.
+- **Ordenação dos resultados**. Os resultados da busca podem ser ordenados por nome do Repo ou por data do último *push*. Isso é possível por meio de novas buscas na API, adicionando o parâmetro `sort` conforme indicado na documentação. As chamadas foram encapsuladas numa classe `Query`, o que permite abstrair os parâmetros e reaproveitar a classe `UseCase<Param, Source>`.
 - **Estética  *on brand***. Cores, fontes e estilo visual conforme projeto gráfico do app e sua "marca".
 - **Uso avançado de string resources**. Uso de *Strings* para a formatação de texto e *string arrays* para a seleção contextual da String.
 - ***Chips* expressivos**. Esses elementos da UI são deixados mais comunicativos por meio do uso de cor, ícone e texto. Foi usado `Map<K, V>` para manter as constantes. Isso evita o acoplamento do código do *BindingAdapter* e facilita a adição de mais linguagens e cores.
@@ -29,6 +30,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 ## Versões
 
 ### V0.1
+
 - Lista os repositórios do usuário no github
 - Troca rápida da conta de usuário github
 - Solução estética básica
@@ -40,6 +42,14 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 ![Screenshot_1](Screenshot_1.png)
 
 ![Screenshot_2](Screenshot_2.png)
+
+![Screenshot_1](Screenshot_3.png)
+
+![Screenshot_2](Screenshot_4.png)
+
+![Screenshot_1](Screenshot_5.png)
+
+![Screenshot_2](Screenshot_6.png)
 
 
 ****
