@@ -41,6 +41,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 ![Screenshot_2](Screenshot_2.png)
 
+//TODO: Add more screenshots
 
 ****
 

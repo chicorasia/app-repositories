@@ -1,11 +1,10 @@
 package br.com.dio.app.repositories.domain
 
+import br.com.dio.app.repositories.core.RepoQuery
 import br.com.dio.app.repositories.core.UseCase
-import br.com.dio.app.repositories.data.model.Owner
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.repositories.RepoRepository
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 
 /**
  * Esse use case tem a função de buscar a lista de Repos no
@@ -17,13 +16,14 @@ import kotlinx.coroutines.flow.first
  * Cada use case deve idealmente ter uma única função e
  * ser facilmente testável.
  */
-class ListUserRepositoriesUseCase(private val repository: RepoRepository)  : UseCase<String, List<Repo>>(){
+class ListUserRepositoriesUseCase(private val repository: RepoRepository)  : UseCase<RepoQuery, List<Repo>>(){
 
     /**
-     * Espera um nome de usuario como String e retorna um Flow
+     * Recebe um array de String com os parâmetros da query e retorna um Flow
      * de dados à partir do repository
      */
-    override suspend fun execute(param: String): Flow<List<Repo>> =
+    override suspend fun execute(param: RepoQuery): Flow<List<Repo>> =
         repository.listRepositories(param)
+
 
 }

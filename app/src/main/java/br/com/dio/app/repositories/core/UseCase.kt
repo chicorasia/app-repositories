@@ -22,3 +22,4 @@ abstract class UseCase<Param, Source> {
 
     object None
 }
+

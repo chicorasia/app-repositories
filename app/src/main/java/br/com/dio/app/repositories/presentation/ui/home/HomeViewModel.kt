@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import br.com.dio.app.repositories.core.RepoQuery
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
@@ -70,6 +71,9 @@ class HomeViewModel(
     val repo: LiveData<State>
         get() = _repo
 
+    // Hardcoded for testing only!
+    private val sorting = "full_name"
+
     /**
      * Essa sintaxe funciona porque, na superclasse UseCase<Param, Source> o operador
      * invoke aponta para a função execute(user: String). Equivale a escrever:
@@ -79,7 +83,7 @@ class HomeViewModel(
      */
     fun getRepoList(user: String) {
         viewModelScope.launch {
-            listUserRepositoriesUseCase(user)
+            listUserRepositoriesUseCase(RepoQuery(user = user, sorting = sorting))
                 .onStart {
                     _repo.postValue(State.Loading)
                     _user.postValue(UsuarioLogado.usuarioLogado)
