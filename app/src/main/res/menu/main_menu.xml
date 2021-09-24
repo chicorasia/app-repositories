@@ -12,9 +12,9 @@
         android:title="Ordenar por nome"
         app:showAsAction="never"
         />
+<!--    Eliminei o ícone desse menu temporariamente... -->
      <item
         android:id="@+id/action_change_user"
-        android:icon="@drawable/ic_person"
         android:title="@string/action_change_user"
         app:showAsAction="never"
         />

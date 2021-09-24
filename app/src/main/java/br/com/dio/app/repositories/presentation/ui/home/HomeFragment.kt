@@ -1,6 +1,8 @@
 package br.com.dio.app.repositories.presentation.ui.home
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
+import android.graphics.BlendMode
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.view.menu.MenuBuilder
@@ -57,6 +59,7 @@ class HomeFragment : Fragment() {
              * pra conseguir mostrar o ícone de troca de usuário
              */
             inflateMenu(R.menu.main_menu)
+
             if (menu is MenuBuilder) (menu as MenuBuilder).setOptionalIconsVisible(true)
             menu.findItem(R.id.action_change_user)
                 .setOnMenuItemClickListener { menuItem ->
