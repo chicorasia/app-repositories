@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
 
             if (menu is MenuBuilder) (menu as MenuBuilder).setOptionalIconsVisible(true)
             menu.findItem(R.id.action_change_user)
-                .setOnMenuItemClickListener { menuItem ->
+                .setOnMenuItemClickListener { _ ->
                     mViewModel.navegaParaLogin()
                     mViewModel.doneNavegaParaLogin()
                     true
@@ -74,7 +74,7 @@ class HomeFragment : Fragment() {
              * na enum GithubApiFilter
              */
             menu.findItem(R.id.action_sort_date)
-                .setOnMenuItemClickListener { menuItem ->
+                .setOnMenuItemClickListener { _ ->
                     user?.let{
                         mViewModel.getRepoList(it.login,
                         GithubApiFilter.SORT_BY_PUSHED)
@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
                     true
                 }
             menu.findItem(R.id.action_sort_name)
-                .setOnMenuItemClickListener { menuItem ->
+                .setOnMenuItemClickListener { _ ->
                     user?.let{
                         mViewModel.getRepoList(it.login,
                             GithubApiFilter.SORT_BY_NAME)

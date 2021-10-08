@@ -5,6 +5,7 @@ import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.domain.GetUserUseCase
+import br.com.dio.app.repositories.util.PreferencesUtils
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -13,7 +14,9 @@ import kotlinx.coroutines.launch
 /**
  * Esse ViewModel dá suporte ao fragmento de login de usuário
  */
-class UserViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
+class UserViewModel(private val userUseCase: GetUserUseCase,
+                    private val preferencesUtils: PreferencesUtils
+) : ViewModel() {
 
     /**
      * Esse campo dispara a navegação para o HomeFragment
@@ -23,9 +26,15 @@ class UserViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
         get() = _navegaParaHome
 
     /**
-     * Inicializa o ViewModel com valor false para ficar no LoginFragment
+     * Tenta carregar um usuário à partir das SharedPreferences;
+     * Se o usuário não for nulo, dispara navegação para a tela
+     * de home. Se for nulo, fica na tela de consulta.
      */
     init {
+        val user: User? = preferencesUtils.loadUser()
+        user?.let {
+            UsuarioLogado.usuarioLogado = it
+        }
         _navegaParaHome.value = UsuarioLogado.usuarioLogado != null
     }
 
@@ -49,11 +58,17 @@ class UserViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
         }
     }
 
+    /**
+     * Esse método cancela a troca de usuário e salva o usuário anterior
+     * novamente nas SharedPreferences
+     */
+    fun cancelChangeUser(previousUser: User) {
+        preferencesUtils.saveUser(previousUser)
+    }
 
     /**
      * Recebe um username da UI, atribui ao UsuarioLogado e dispara a
-     * navegação para o HomeFragment. Esse método precisa ser aprimorado com
-     * uma rotina de validação do nome de usuário junto à API.
+     * navegação para o HomeFragment.
      */
     fun setUsuarioLogado(user: String) {
         viewModelScope.launch {
@@ -67,6 +82,7 @@ class UserViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
                 .collect {
                     _user.postValue(UserState.Success(it))
                     UsuarioLogado.usuarioLogado = it
+                    preferencesUtils.saveUser(it)
                     _navegaParaHome.value = true
                 }
         }

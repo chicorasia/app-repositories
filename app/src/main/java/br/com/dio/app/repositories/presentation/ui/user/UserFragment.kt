@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.dio.app.repositories.data.user.UsuarioLogado
@@ -28,7 +29,7 @@ class UserFragment : Fragment() {
      * Esse atributo recebe os argumentos que vieram via
      * Navigation Component
      */
-    private val args by navArgs<br.com.dio.app.repositories.presentation.ui.home.UserFragmentArgs>()
+    private val args by navArgs<UserFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -45,6 +46,7 @@ class UserFragment : Fragment() {
         initBtnEnviar()
         initNavegaParaHomeObserver()
         initSnackbar()
+        initCloseBtn()
 
         return binding.root
 
@@ -81,11 +83,36 @@ class UserFragment : Fragment() {
         mViewModel.navegaParaHome.observe(viewLifecycleOwner) { navegaParaHome ->
             if (navegaParaHome) {
                 val directions =
-                    br.com.dio.app.repositories.presentation.ui.home.UserFragmentDirections.vaiDeLoginFragmentParaHomeFragment()
+                    UserFragmentDirections.vaiDeLoginFragmentParaHomeFragment()
                 findNavController().navigate(directions)
             }
         }
     }
+
+    /**
+     * Este método inicializa o botão de fechar a tela de usuário.
+     * Como faz duas operações - salva o usuário atual nas preferências
+     * e fecha a tela - não consegui definí-lo no XML.
+     */
+    private fun initCloseBtn() {
+        with(binding.loginCloseBtn) {
+            if(this.isVisible) {
+                setOnClickListener {
+                    restorePreviousUser()
+                    findNavController().popBackStack()
+                }
+            }
+        }
+    }
+
+    /**
+     * Essa função encapsula o método que grava o usuário anterior
+     * nas SharedPreferences. Efetivamente cancela a troca de usuário.
+     */
+    private fun restorePreviousUser() {
+        binding.user?.let { mViewModel.cancelChangeUser(it) }
+    }
+
 
     /**
      * Esse método configura o ClickListener. Faz uma validação básica (se está preenchido) e

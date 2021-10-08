@@ -11,4 +11,6 @@ object UsuarioLogado {
     var usuarioLogado: User? = null
     var previousUser: User? = null
 
+    var isLoggedIn = usuarioLogado != null
+    var notLoggedIn = !isLoggedIn
 }

@@ -10,6 +10,7 @@ import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.domain.ListUserRepositoriesUseCase
+import br.com.dio.app.repositories.util.PreferencesUtils
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -21,7 +22,8 @@ import kotlinx.coroutines.launch
  * práticas de Clean Architecture
  */
 class HomeViewModel(
-    private val listUserRepositoriesUseCase: ListUserRepositoriesUseCase
+    private val listUserRepositoriesUseCase: ListUserRepositoriesUseCase,
+    private val preferencesUtils: PreferencesUtils
 ) : ViewModel() {
 
     /**
@@ -41,7 +43,7 @@ class HomeViewModel(
     }
 
     /**
-     * Esse campo matém as informações do dono dos repositórios (usuário ativo)
+     * Esse campo mantém as informações do dono dos repositórios (usuário ativo)
      */
 
     private val _user = MutableLiveData<User>()
@@ -57,12 +59,14 @@ class HomeViewModel(
         get() = _navegaParaLogin
 
     fun navegaParaLogin() {
+        preferencesUtils.clearUser()
         _navegaParaLogin.value = true
     }
 
     fun doneNavegaParaLogin() {
         _navegaParaLogin.value = false
     }
+
 
     /**
      * Esse campo mantém o State do Flow. Foi usada a técnica de encapsulamento

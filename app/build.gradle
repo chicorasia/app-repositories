@@ -79,4 +79,7 @@ dependencies {
     //Testing
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 
+    //Datastore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
 }
