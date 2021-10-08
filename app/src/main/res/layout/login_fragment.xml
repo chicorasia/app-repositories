@@ -9,7 +9,7 @@
             type="br.com.dio.app.repositories.data.model.User" />
         <variable
             name="viewModel"
-            type="br.com.dio.app.repositories.presentation.ui.home.LoginViewModel" />
+            type="br.com.dio.app.repositories.presentation.ui.user.UserViewModel" />
         <variable
             name="navController"
             type="androidx.navigation.NavController" />
@@ -19,7 +19,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".presentation.ui.home.LoginFragment">
+        tools:context=".presentation.ui.user.UserFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

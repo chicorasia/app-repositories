@@ -1,7 +1,7 @@
 package br.com.dio.app.repositories.presentation.di
 
 import br.com.dio.app.repositories.presentation.ui.home.HomeViewModel
-import br.com.dio.app.repositories.presentation.ui.home.LoginViewModel
+import br.com.dio.app.repositories.presentation.ui.user.UserViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
@@ -20,7 +20,7 @@ object PresentationModule {
     private fun viewModelModule() : Module {
         return module {
             viewModel { HomeViewModel(get()) }
-            viewModel { LoginViewModel(get()) }
+            viewModel { UserViewModel(get()) }
         }
     }
 }

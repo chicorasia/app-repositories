@@ -1,4 +1,4 @@
-package br.com.dio.app.repositories.presentation.ui.home
+package br.com.dio.app.repositories.presentation.ui.user
 
 import androidx.lifecycle.*
 import br.com.dio.app.repositories.core.Query
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 /**
  * Esse ViewModel dá suporte ao fragmento de login de usuário
  */
-class LoginViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
+class UserViewModel(private val userUseCase: GetUserUseCase) : ViewModel() {
 
     /**
      * Esse campo dispara a navegação para o HomeFragment

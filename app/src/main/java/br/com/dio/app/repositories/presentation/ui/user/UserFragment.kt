@@ -1,4 +1,4 @@
-package br.com.dio.app.repositories.presentation.ui.home
+package br.com.dio.app.repositories.presentation.ui.user
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,21 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.LoginFragmentBinding
 import com.google.android.material.snackbar.Snackbar
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Esse fragmento representa a tela inicial do app, que pede a informação de
  * nome de usuário do github
  */
-class LoginFragment : Fragment() {
+class UserFragment : Fragment() {
 
 
-    private val mViewModel: LoginViewModel by viewModel()
+    private val mViewModel: UserViewModel by viewModel()
     private val binding: LoginFragmentBinding by lazy {
         LoginFragmentBinding.inflate(layoutInflater)
     }
@@ -30,7 +28,7 @@ class LoginFragment : Fragment() {
      * Esse atributo recebe os argumentos que vieram via
      * Navigation Component
      */
-    private val args by navArgs<LoginFragmentArgs>()
+    private val args by navArgs<br.com.dio.app.repositories.presentation.ui.home.UserFragmentArgs>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -82,7 +80,8 @@ class LoginFragment : Fragment() {
     private fun initNavegaParaHomeObserver() {
         mViewModel.navegaParaHome.observe(viewLifecycleOwner) { navegaParaHome ->
             if (navegaParaHome) {
-                val directions = LoginFragmentDirections.vaiDeLoginFragmentParaHomeFragment()
+                val directions =
+                    br.com.dio.app.repositories.presentation.ui.home.UserFragmentDirections.vaiDeLoginFragmentParaHomeFragment()
                 findNavController().navigate(directions)
             }
         }

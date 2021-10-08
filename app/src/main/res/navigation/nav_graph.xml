@@ -13,7 +13,7 @@
         tools:layout="@layout/home_fragment" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="br.com.dio.app.repositories.presentation.ui.home.LoginFragment"
+        android:name="br.com.dio.app.repositories.presentation.ui.user.UserFragment"
         android:label="login_fragment"
         tools:layout="@layout/login_fragment" >
         <action
