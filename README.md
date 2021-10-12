@@ -7,6 +7,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **Layout funcional e amigável**. Telas com layout elegante e funcional, aplicando melhores práticas de UI/UX e valorizando as informações do usuário.
 - **Tela de entrada / troca de usuário**. Com instruções para entrada dos dados e validação junto à API; erros são informados por meio de `SnackBar`.
 - **Verificação de usuário**. O app verifica as informações (username) do usuário no endpoint `users/{username}` da API e somente entra na tela principal após a validação. Essa funcionalidade também possibilita obter mais informações sobre o usuário como, por exemplo, a contagem de repositórios públicos.
+- **Persistência de usuário**. Os dados do último usuário consultado ficam gravados no armazenamento local, acelerando o acesso ao se abrir o app novamente.
 - **Ordenação dos resultados**. Os resultados da busca podem ser ordenados por nome do Repo ou por data do último *push*. Isso é possível por meio de novas buscas na API, adicionando o parâmetro `sort` conforme indicado na documentação. As chamadas foram encapsuladas numa classe `Query`, o que permite abstrair os parâmetros e reaproveitar a classe `UseCase<Param, Source>`.
 - **Estética  *on brand***. Cores, fontes e estilo visual conforme projeto gráfico do app e sua "marca".
 - **Uso avançado de string resources**. Uso de *Strings* para a formatação de texto e *string arrays* para a seleção contextual da String.
