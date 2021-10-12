@@ -9,8 +9,8 @@ import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
+import br.com.dio.app.repositories.domain.ClearUserFromPreferencesUseCase
 import br.com.dio.app.repositories.domain.ListUserRepositoriesUseCase
-import br.com.dio.app.repositories.util.PreferencesUtils
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel(
     private val listUserRepositoriesUseCase: ListUserRepositoriesUseCase,
-    private val preferencesUtils: PreferencesUtils
+    private val clearUserFromPreferencesUseCase: ClearUserFromPreferencesUseCase
 ) : ViewModel() {
 
     /**
@@ -59,7 +59,7 @@ class HomeViewModel(
         get() = _navegaParaLogin
 
     fun navegaParaLogin() {
-        preferencesUtils.clearUser()
+        clearUserFromPreferencesUseCase()
         _navegaParaLogin.value = true
     }
 

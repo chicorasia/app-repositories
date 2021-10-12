@@ -5,7 +5,8 @@ import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.domain.GetUserUseCase
-import br.com.dio.app.repositories.util.PreferencesUtils
+import br.com.dio.app.repositories.domain.LoadUserFromPreferencesUseCase
+import br.com.dio.app.repositories.domain.SaveUserToPreferencesUseCase
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onStart
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
  * Esse ViewModel dá suporte ao fragmento de login de usuário
  */
 class UserViewModel(private val userUseCase: GetUserUseCase,
-                    private val preferencesUtils: PreferencesUtils
+                    private val saveUserToPreferencesUseCase: SaveUserToPreferencesUseCase,
+                    private val loadUserFromPreferencesUseCase: LoadUserFromPreferencesUseCase
 ) : ViewModel() {
 
     /**
@@ -31,7 +33,7 @@ class UserViewModel(private val userUseCase: GetUserUseCase,
      * de home. Se for nulo, fica na tela de consulta.
      */
     init {
-        val user: User? = preferencesUtils.loadUser()
+        val user: User? = loadUserFromPreferencesUseCase()
         user?.let {
             UsuarioLogado.usuarioLogado = it
         }
@@ -63,7 +65,9 @@ class UserViewModel(private val userUseCase: GetUserUseCase,
      * novamente nas SharedPreferences
      */
     fun cancelChangeUser(previousUser: User) {
-        preferencesUtils.saveUser(previousUser)
+        viewModelScope.launch {
+            saveUserToPreferencesUseCase(previousUser)
+        }
     }
 
     /**
@@ -82,7 +86,7 @@ class UserViewModel(private val userUseCase: GetUserUseCase,
                 .collect {
                     _user.postValue(UserState.Success(it))
                     UsuarioLogado.usuarioLogado = it
-                    preferencesUtils.saveUser(it)
+                    saveUserToPreferencesUseCase(it)
                     _navegaParaHome.value = true
                 }
         }
