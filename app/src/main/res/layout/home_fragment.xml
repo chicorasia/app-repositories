@@ -7,15 +7,12 @@
     e também importa a classe View para facilitar a manipulação da visibilidade
     de elementos.-->
     <data>
-
         <variable
             name="viewModel"
             type="br.com.dio.app.repositories.presentation.ui.home.HomeViewModel" />
-
         <variable
             name="user"
             type="br.com.dio.app.repositories.data.model.User" />
-
         <import type="android.view.View" />
     </data>
 

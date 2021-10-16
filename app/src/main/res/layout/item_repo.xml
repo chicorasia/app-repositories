@@ -9,6 +9,11 @@
             name="repo"
             type="br.com.dio.app.repositories.data.model.Repo" />
 
+        <variable
+            name="clickListener"
+            type="br.com.dio.app.repositories.presentation.adapter.RepoListClickListener"
+            />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +23,7 @@
         <!--    Esse XML representa um item da lista -->
         <!--    TODO: adicionar formatação de string para conversão da data -->
 
-
+        <!-- O método onClick invoca o CLickListener -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/itemCardView"
             android:layout_width="match_parent"
@@ -28,7 +33,9 @@
             android:padding="@dimen/layout_half_padding"
             app:cardCornerRadius="@dimen/cardview_default_radius"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:onClick="@{ () -> clickListener.onClick(repo) }"
+            >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

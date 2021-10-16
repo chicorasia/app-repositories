@@ -10,16 +10,22 @@ import br.com.dio.app.repositories.databinding.ItemRepoBinding
 
 /**
  * Essa classe define um adapter para a recyclerview de Repos. Estende a classe
- * ListAdapter.
+ * ListAdapter. Recebe um clickListener como parâmetro do construtor, que
+ * depois é repassado para o método bind() do ViewHolder.
  */
-class RepoListAdapter() : ListAdapter<Repo, RepoListAdapter.RepoViewHolder>(RepoDiffUtilCallback()) {
+class RepoListAdapter(
+    private val clickListener: RepoListClickListener
+    ) : ListAdapter<Repo, RepoListAdapter.RepoViewHolder>(RepoDiffUtilCallback()) {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder =
         RepoViewHolder.from(parent)
 
+    /**
+     * Aqui o clickListener é simplesmente passado o ViewHolder.
+     */
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), clickListener)
     }
 
     /**
@@ -44,10 +50,14 @@ class RepoListAdapter() : ListAdapter<Repo, RepoListAdapter.RepoViewHolder>(Repo
 
         /**
          * Estou usando um DataBindingLayout; aqui eu atribuo o item para a variável
-         * "repo". A vinculação é definida no arquivo XML com o apoio de BindingAdapters.
+         * "repo", e o clickListener recebido do Adapter para a variável clickListener.
+         * Como o ViewHolder tem conhecimento do Repo, eu posso simplesmente chamar o
+         * onClick() no XML, passando o repo como parâmetro (ver o item_repo.xml).
+         * A vinculação é definida no arquivo XML com o apoio de BindingAdapters.
          */
-        fun bind(item: Repo) {
+        fun bind(item: Repo, clickListener: RepoListClickListener) {
             binding.repo = item
+            binding.clickListener = clickListener
         }
 
     }

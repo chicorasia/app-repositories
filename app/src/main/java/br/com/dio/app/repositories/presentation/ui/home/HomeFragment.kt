@@ -5,6 +5,7 @@ import android.content.res.ColorStateList
 import android.graphics.BlendMode
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import br.com.dio.app.repositories.core.GithubApiFilter
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.HomeFragmentBinding
 import br.com.dio.app.repositories.presentation.adapter.RepoListAdapter
+import br.com.dio.app.repositories.presentation.adapter.RepoListClickListener
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +30,17 @@ class HomeFragment : Fragment() {
     val binding: HomeFragmentBinding by lazy {
         HomeFragmentBinding.inflate(layoutInflater)
     }
-    val adapter = RepoListAdapter()
+
+    /**
+     * Inicializa o adapter passando uma instância do RepoListClickListener
+     * e o seu comportamento. Fica aqui por enquanto (para teste) mas o certo
+     * é passar esse comportamento para o ViewModel com uma variável observável
+     * para disparar a navegação para o DetailFragment.
+     */
+    private val adapter = RepoListAdapter(RepoListClickListener { repo ->
+        Toast.makeText(view?.context!!, "Clicou em ${repo.name}", Toast.LENGTH_LONG).show()
+    }
+    )
     val user = UsuarioLogado.usuarioLogado
 
     override fun onCreate(savedInstanceState: Bundle?) {
