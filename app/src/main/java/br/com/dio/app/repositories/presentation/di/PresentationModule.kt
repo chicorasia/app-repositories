@@ -3,6 +3,7 @@ package br.com.dio.app.repositories.presentation.di
 import br.com.dio.app.repositories.domain.ClearUserFromPreferencesUseCase
 import br.com.dio.app.repositories.domain.LoadUserFromPreferencesUseCase
 import br.com.dio.app.repositories.domain.SaveUserToPreferencesUseCase
+import br.com.dio.app.repositories.presentation.ui.detail.DetailViewModel
 import br.com.dio.app.repositories.util.PreferencesUtils
 import br.com.dio.app.repositories.presentation.ui.home.HomeViewModel
 import br.com.dio.app.repositories.presentation.ui.user.UserViewModel
@@ -26,6 +27,7 @@ object PresentationModule {
         return module {
             viewModel { HomeViewModel(get(), get()) }
             viewModel { UserViewModel(get(), get(), get()) }
+            viewModel { DetailViewModel() }
         }
     }
 

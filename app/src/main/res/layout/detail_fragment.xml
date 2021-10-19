@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    Essas são as variáveis vinculadas com o layout. Provavelmente vou precisar
+        adicionar uma variável Repo para facilitar a vinculação dos dados.
+-->
+    <data>
+        <variable
+            name="viewModel"
+            type="br.com.dio.app.repositories.presentation.ui.detail.DetailViewModel" />
+        <variable
+            name="navController"
+            type="androidx.navigation.NavController" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.ui.detail.DetailFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/detailCloseBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/design_default_color_on_primary"
+                android:layout_width="@dimen/material_btn_dimension"
+                android:layout_height="@dimen/material_btn_dimension"
+                android:background="?attr/actionBarItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/ic_close"
+                android:onClick="@{() -> navController.popBackStack()}"/>
+
+            <TextView
+                style="@style/UserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@{viewModel.helloText}"
+                tools:text="@string/detail_placeholder" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    </FrameLayout>
+</layout>

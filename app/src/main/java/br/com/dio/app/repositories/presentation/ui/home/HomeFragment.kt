@@ -33,12 +33,12 @@ class HomeFragment : Fragment() {
 
     /**
      * Inicializa o adapter passando uma instância do RepoListClickListener
-     * e o seu comportamento. Fica aqui por enquanto (para teste) mas o certo
-     * é passar esse comportamento para o ViewModel com uma variável observável
-     * para disparar a navegação para o DetailFragment.
+     * e o seu comportamento. A navegação é controlada pelo ViewModel com uma
+     * variável observável. Depois de disparar a navegação a variável é resetada.
      */
     private val adapter = RepoListAdapter(RepoListClickListener { repo ->
-        Toast.makeText(view?.context!!, "Clicou em ${repo.name}", Toast.LENGTH_LONG).show()
+        mViewModel.navegaParaDetail()
+        mViewModel.doneNavegaParaDetail()
     }
     )
     val user = UsuarioLogado.usuarioLogado
@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
         initBinding()
         initNavegacaoLogin()
         initUserInfo()
+        initNavegacaoDetail()
         return binding.root
     }
 
@@ -174,6 +175,15 @@ class HomeFragment : Fragment() {
                     adapter.submitList(it.list)
 
                 }
+            }
+        }
+    }
+
+    private fun initNavegacaoDetail() {
+        mViewModel.navegaParaDetail.observe(viewLifecycleOwner) { navegaParaDetail ->
+            if (navegaParaDetail) {
+                val directions = HomeFragmentDirections.vaiDeHomeFragmentParaDetailFragment()
+                findNavController().navigate(directions)
             }
         }
     }

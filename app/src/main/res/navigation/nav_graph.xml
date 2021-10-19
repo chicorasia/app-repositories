@@ -10,7 +10,11 @@
         android:id="@+id/homeFragment"
         android:name="br.com.dio.app.repositories.presentation.ui.home.HomeFragment"
         android:label="home_fragment"
-        tools:layout="@layout/home_fragment" />
+        tools:layout="@layout/home_fragment" >
+        <action
+            android:id="@+id/vaiDeHomeFragment_para_DetailFragment"
+            app:destination="@id/detailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="br.com.dio.app.repositories.presentation.ui.user.UserFragment"
@@ -33,4 +37,8 @@
         app:destination="@id/loginFragment"
         app:launchSingleTop="false"
         app:popUpToInclusive="true" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="br.com.dio.app.repositories.presentation.ui.detail.DetailFragment"
+        android:label="DetailFragment" />
 </navigation>
