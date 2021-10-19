@@ -27,7 +27,7 @@ object PresentationModule {
         return module {
             viewModel { HomeViewModel(get(), get()) }
             viewModel { UserViewModel(get(), get(), get()) }
-            viewModel { DetailViewModel() }
+            viewModel { DetailViewModel(get()) }
         }
     }
 

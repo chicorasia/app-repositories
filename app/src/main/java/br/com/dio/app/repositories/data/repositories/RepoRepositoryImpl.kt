@@ -23,7 +23,7 @@ class RepoRepositoryImpl(private val service: GithubService) : RepoRepository {
      */
     override suspend fun listRepositories(param: Query): Flow<List<Repo>> = flow {
         try {
-            val repoList = service.listRepositories(param.user, param.sorting)
+            val repoList = service.listRepositories(param.user, param.option)
             emit(repoList)
         } catch (ex: HttpException) {
             throw RemoteException("Não foi possível acessar a API web!")

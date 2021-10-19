@@ -1,6 +1,8 @@
 package br.com.dio.app.repositories.data.di
 
 import android.util.Log
+import br.com.dio.app.repositories.data.repo.RepoInfo
+import br.com.dio.app.repositories.data.repo.RepoInfoImpl
 import br.com.dio.app.repositories.data.repositories.RepoRepository
 import br.com.dio.app.repositories.data.repositories.RepoRepositoryImpl
 import br.com.dio.app.repositories.data.services.GithubService
@@ -34,7 +36,8 @@ object DataModule {
      * uma única chamada. Isso evita duplicação de código na classe App.
      */
     fun load() {
-        loadKoinModules(networkModule() + repositoriesModule() + userModule())
+        loadKoinModules(networkModule() + repositoriesModule()
+                + userModule() + repoModule())
     }
 
     /**
@@ -89,6 +92,17 @@ object DataModule {
     private fun userModule() : Module {
         return module {
             factory<UserInfo> { UserInfoImpl(get()) }
+        }
+    }
+
+
+    /**
+     * Esse método é responsável por instanciar um RepoInfoImpl; como no
+     * caso do UserInfo, preferi usar uma factory porque faz sentido ter um singleton.
+     */
+    private fun repoModule() : Module {
+        return module {
+            factory<RepoInfo> { RepoInfoImpl(get()) }
         }
     }
 

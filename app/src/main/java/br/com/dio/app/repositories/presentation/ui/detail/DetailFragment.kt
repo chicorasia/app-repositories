@@ -1,6 +1,5 @@
 package br.com.dio.app.repositories.presentation.ui.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import br.com.dio.app.repositories.R
+import br.com.dio.app.repositories.core.State
+import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -34,6 +35,8 @@ class DetailFragment : Fragment() {
          */
         binding.viewModel = mViewModel
         binding.navController = findNavController()
+        initRepoObserver()
+
         return binding.root
 
     }
@@ -43,7 +46,23 @@ class DetailFragment : Fragment() {
      * Por enquanto, apenas o nome do Repo.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        mViewModel.setRepoNameText(argumentos.repoName)
+        mViewModel.fetchRepo(owner = argumentos.owner, repoName = argumentos.repoName)
+    }
+
+    fun initRepoObserver() {
+        mViewModel.repo.observe(viewLifecycleOwner) {
+            when(it) {
+                State.Loading -> {
+                    binding.detailHelloText.text = "Carregando..."
+                }
+                is State.Error -> {
+                    binding.detailHelloText.text = "Ocorreu um erro ao carregar"
+                }
+                is State.Success -> {
+                    binding.detailHelloText.text = "${it.result}"
+                }
+            }
+        }
     }
 
     companion object {

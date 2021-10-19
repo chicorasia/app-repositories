@@ -1,5 +1,6 @@
 package br.com.dio.app.repositories.domain.di
 
+import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
 import br.com.dio.app.repositories.domain.GetUserUseCase
 import br.com.dio.app.repositories.domain.ListUserRepositoriesUseCase
 import org.koin.core.context.loadKoinModules
@@ -28,8 +29,8 @@ object DomainModule {
         return module {
             factory { ListUserRepositoriesUseCase(get()) }
             factory { GetUserUseCase(get()) }
+            factory { GetRepoInfoUseCase(get()) }
         }
     }
-
 
 }

@@ -38,11 +38,12 @@
                 android:onClick="@{() -> navController.popBackStack()}"/>
 
             <TextView
+                android:id="@+id/detailHelloText"
                 style="@style/UserInfo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@{viewModel.helloText}"
+                android:text="@{viewModel.repo.toString()}"
                 tools:text="@string/detail_placeholder" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
