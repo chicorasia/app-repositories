@@ -7,4 +7,5 @@
     <string name="repo_count_format">Possui %d repositórios públicos.</string>
     <string name="lista_repo_title">Lista de Repositórios</string>
     <string name="welcome">welcome,\nbienvenue,\nbem-vindos</string>
+    <string name="detail_placeholder">Hello, I\'m Detail Fragment!</string>
 </resources>

@@ -33,12 +33,12 @@ class HomeFragment : Fragment() {
 
     /**
      * Inicializa o adapter passando uma instância do RepoListClickListener
-     * e o seu comportamento. Fica aqui por enquanto (para teste) mas o certo
-     * é passar esse comportamento para o ViewModel com uma variável observável
-     * para disparar a navegação para o DetailFragment.
+     * e o seu comportamento. A navegação é controlada pelo ViewModel com uma
+     * variável observável. Depois de disparar a navegação a variável é resetada.
      */
     private val adapter = RepoListAdapter(RepoListClickListener { repo ->
-        Toast.makeText(view?.context!!, "Clicou em ${repo.name}", Toast.LENGTH_LONG).show()
+        mViewModel.navegaParaDetail(repo)
+        mViewModel.doneNavegaParaDetail()
     }
     )
     val user = UsuarioLogado.usuarioLogado
@@ -57,6 +57,7 @@ class HomeFragment : Fragment() {
         initBinding()
         initNavegacaoLogin()
         initUserInfo()
+        initNavegacaoDetail()
         return binding.root
     }
 
@@ -87,17 +88,21 @@ class HomeFragment : Fragment() {
              */
             menu.findItem(R.id.action_sort_date)
                 .setOnMenuItemClickListener { _ ->
-                    user?.let{
-                        mViewModel.getRepoList(it.login,
-                        GithubApiFilter.SORT_BY_PUSHED)
+                    user?.let {
+                        mViewModel.getRepoList(
+                            it.login,
+                            GithubApiFilter.SORT_BY_PUSHED
+                        )
                     }
                     true
                 }
             menu.findItem(R.id.action_sort_name)
                 .setOnMenuItemClickListener { _ ->
-                    user?.let{
-                        mViewModel.getRepoList(it.login,
-                            GithubApiFilter.SORT_BY_NAME)
+                    user?.let {
+                        mViewModel.getRepoList(
+                            it.login,
+                            GithubApiFilter.SORT_BY_NAME
+                        )
                     }
                     true
                 }
@@ -174,6 +179,21 @@ class HomeFragment : Fragment() {
                     adapter.submitList(it.list)
 
                 }
+            }
+        }
+    }
+
+    /**
+     * Esse método configura o observer do campo navegaParaDetail e a navegação
+     * para o fragmento de detalhes do repo.
+     * TODO: passar um Repo como parâmetro.
+     */
+    private fun initNavegacaoDetail() {
+        mViewModel.navegaParaDetail.observe(viewLifecycleOwner) { repo ->
+           repo?.let {
+                val directions =
+                    HomeFragmentDirections.vaiDeHomeFragmentParaDetailFragment(repo.name)
+                findNavController().navigate(directions)
             }
         }
     }

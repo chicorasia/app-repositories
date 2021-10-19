@@ -21,9 +21,8 @@
         android:layout_height="wrap_content">
 
         <!--    Esse XML representa um item da lista -->
-        <!--    TODO: adicionar formatação de string para conversão da data -->
 
-        <!-- O método onClick invoca o CLickListener -->
+        <!-- O método onClick invoca o método definido na classe RepoListCLickListener -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/itemCardView"
             android:layout_width="match_parent"

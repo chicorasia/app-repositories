@@ -1,4 +1,3 @@
-
 package br.com.dio.app.repositories.data.services
 
 import br.com.dio.app.repositories.data.model.Repo
@@ -16,15 +15,28 @@ interface GithubService {
      * causa erros na API.
      */
     @GET("users/{user}/repos?sort=sorting")
-    suspend fun listRepositories(@Path("user") user:String,
-                                 @Query("sort") sorting: String?) : List<Repo>
+    suspend fun listRepositories(
+        @Path("user") user: String,
+        @Query("sort") sorting: String?
+    ): List<Repo>
 
     /**
      * Esse endpoint acessa as informações básicas do usuário. Optei por manter a separação
      * entre as classes User e Owner para evitar retrabalhos na classe Repo.
      */
     @GET("users/{username}")
-    suspend fun getUser(@Path("username") user:String) : User
+    suspend fun getUser(@Path("username") user: String): User
+
+    /**
+     * Esse endpoint recebe dois parâmetros - nome de usuario e nome do Repo - e retorna
+     * um único Repo.
+     */
+    @GET("repos/{owner}/{repo}")
+    suspend fun getRepo(
+        @Path("owner") owner: String,
+        @Path("repo") repoName: String
+    ): Repo
+
 
 
 }

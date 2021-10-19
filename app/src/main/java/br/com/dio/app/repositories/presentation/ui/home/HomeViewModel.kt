@@ -67,6 +67,22 @@ class HomeViewModel(
         _navegaParaLogin.value = false
     }
 
+    /**
+     * Esse campo dispara a navegação para o DetailFragment; a navegação
+     * acontece quando o valor do campo não é nulo.
+     */
+    private val _navegaParaDetail = MutableLiveData<Repo?>(null)
+    val navegaParaDetail: LiveData<Repo?>
+        get() = _navegaParaDetail
+
+    fun navegaParaDetail(repo: Repo) {
+        _navegaParaDetail.value = repo
+    }
+
+    fun doneNavegaParaDetail() {
+        _navegaParaDetail.value= null
+    }
+
 
     /**
      * Esse campo mantém o State do Flow. Foi usada a técnica de encapsulamento
@@ -119,5 +135,10 @@ class HomeViewModel(
 
         data class Error(val error: Throwable) : State()
     }
+
+    class DetailNavigation(
+        var trigger: Boolean = false,
+        var repo: Repo? = null
+    )
 
 }
