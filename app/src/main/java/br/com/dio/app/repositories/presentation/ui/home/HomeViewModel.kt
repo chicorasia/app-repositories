@@ -68,18 +68,19 @@ class HomeViewModel(
     }
 
     /**
-     * Esse campo dispara a navegação para o DetailFragment.
+     * Esse campo dispara a navegação para o DetailFragment; a navegação
+     * acontece quando o valor do campo não é nulo.
      */
-    private val _navegaParaDetail = MutableLiveData<Boolean>(false)
-    val navegaParaDetail: LiveData<Boolean>
+    private val _navegaParaDetail = MutableLiveData<Repo?>(null)
+    val navegaParaDetail: LiveData<Repo?>
         get() = _navegaParaDetail
 
-    fun navegaParaDetail() {
-        _navegaParaDetail.value = true
+    fun navegaParaDetail(repo: Repo) {
+        _navegaParaDetail.value = repo
     }
 
     fun doneNavegaParaDetail() {
-        _navegaParaDetail.value = false
+        _navegaParaDetail.value= null
     }
 
 
@@ -134,5 +135,10 @@ class HomeViewModel(
 
         data class Error(val error: Throwable) : State()
     }
+
+    class DetailNavigation(
+        var trigger: Boolean = false,
+        var repo: Repo? = null
+    )
 
 }

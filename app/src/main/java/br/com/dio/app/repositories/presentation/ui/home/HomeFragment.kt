@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
      * variável observável. Depois de disparar a navegação a variável é resetada.
      */
     private val adapter = RepoListAdapter(RepoListClickListener { repo ->
-        mViewModel.navegaParaDetail()
+        mViewModel.navegaParaDetail(repo)
         mViewModel.doneNavegaParaDetail()
     }
     )
@@ -88,17 +88,21 @@ class HomeFragment : Fragment() {
              */
             menu.findItem(R.id.action_sort_date)
                 .setOnMenuItemClickListener { _ ->
-                    user?.let{
-                        mViewModel.getRepoList(it.login,
-                        GithubApiFilter.SORT_BY_PUSHED)
+                    user?.let {
+                        mViewModel.getRepoList(
+                            it.login,
+                            GithubApiFilter.SORT_BY_PUSHED
+                        )
                     }
                     true
                 }
             menu.findItem(R.id.action_sort_name)
                 .setOnMenuItemClickListener { _ ->
-                    user?.let{
-                        mViewModel.getRepoList(it.login,
-                            GithubApiFilter.SORT_BY_NAME)
+                    user?.let {
+                        mViewModel.getRepoList(
+                            it.login,
+                            GithubApiFilter.SORT_BY_NAME
+                        )
                     }
                     true
                 }
@@ -179,10 +183,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    /**
+     * Esse método configura o observer do campo navegaParaDetail e a navegação
+     * para o fragmento de detalhes do repo.
+     * TODO: passar um Repo como parâmetro.
+     */
     private fun initNavegacaoDetail() {
-        mViewModel.navegaParaDetail.observe(viewLifecycleOwner) { navegaParaDetail ->
-            if (navegaParaDetail) {
-                val directions = HomeFragmentDirections.vaiDeHomeFragmentParaDetailFragment()
+        mViewModel.navegaParaDetail.observe(viewLifecycleOwner) { repo ->
+           repo?.let {
+                val directions =
+                    HomeFragmentDirections.vaiDeHomeFragmentParaDetailFragment(repo.name)
                 findNavController().navigate(directions)
             }
         }

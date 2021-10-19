@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -21,6 +22,8 @@ class DetailFragment : Fragment() {
         DetailFragmentBinding.inflate(layoutInflater)
     }
 
+    private val argumentos: DetailFragmentArgs by navArgs<DetailFragmentArgs>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +36,10 @@ class DetailFragment : Fragment() {
         binding.navController = findNavController()
         return binding.root
 
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mViewModel.setRepoNameText(argumentos.repoName)
     }
 
     companion object {

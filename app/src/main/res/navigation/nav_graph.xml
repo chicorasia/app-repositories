@@ -40,5 +40,9 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="br.com.dio.app.repositories.presentation.ui.detail.DetailFragment"
-        android:label="DetailFragment" />
+        android:label="DetailFragment" >
+        <argument
+            android:name="repoName"
+            app:argType="string" />
+    </fragment>
 </navigation>

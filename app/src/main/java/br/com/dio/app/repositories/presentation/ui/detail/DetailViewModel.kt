@@ -5,5 +5,9 @@ import androidx.lifecycle.ViewModel
 class DetailViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 
-    val helloText = "Hello, I'm detail fragment"
+    var helloText = "Hello, I'm detail fragment"
+
+    fun setRepoNameText(repoName: String) {
+        helloText = repoName
+    }
 }
