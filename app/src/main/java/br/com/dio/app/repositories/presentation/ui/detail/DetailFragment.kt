@@ -38,6 +38,10 @@ class DetailFragment : Fragment() {
 
     }
 
+    /**
+     * Acessa os argumentos recebidos via Navigation e atualiza dos dados na tela.
+     * Por enquanto, apenas o nome do Repo.
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel.setRepoNameText(argumentos.repoName)
     }
