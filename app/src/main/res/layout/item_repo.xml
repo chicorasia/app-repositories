@@ -4,16 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="repo"
             type="br.com.dio.app.repositories.data.model.Repo" />
-
         <variable
             name="clickListener"
             type="br.com.dio.app.repositories.presentation.adapter.RepoListClickListener"
             />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

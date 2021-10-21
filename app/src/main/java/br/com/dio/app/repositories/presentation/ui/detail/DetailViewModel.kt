@@ -19,10 +19,20 @@ import kotlinx.coroutines.launch
  */
 class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : ViewModel() {
 
-
+    /**
+     * Esse campo mantém o Repo como um State, para facilitar
+     * a manipulação da UI a partir do resultado da consulta.
+     * Segue o mesmo padrão usado no HomeFragment.
+     * Repare que o State agora é type-safe por meio da aplicação
+     * dos generics.
+     */
     private val _repo = MutableLiveData<State<Repo>>()
     val repo: LiveData<State<Repo>>
         get() = _repo
+
+    /**
+     * Recupera um único repo da API e atribui ao campo _repo
+     */
 
     fun fetchRepo(owner: String, repoName: String) {
         val query = Query(owner, repoName)
@@ -40,4 +50,5 @@ class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : View
         }
 
     }
+
 }

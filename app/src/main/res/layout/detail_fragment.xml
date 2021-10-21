@@ -46,6 +46,14 @@
                 android:text="@{viewModel.repo.toString()}"
                 tools:text="@string/detail_placeholder" />
 
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/bottom_sheet_dialog"/>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
