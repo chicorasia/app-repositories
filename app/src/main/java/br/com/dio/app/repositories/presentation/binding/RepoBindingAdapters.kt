@@ -23,6 +23,9 @@ import java.util.*
 
 const val OTHER = "Other"
 
+/**
+ * Esse adapter está depreciado.
+ */
 @BindingAdapter("itemUserAvatarIv")
 fun ImageView.setAvatar(repo: Repo?) {
     repo?.let { repo ->

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="repo"
-            type="br.com.dio.app.repositories.data.model.Repo" />
+            name="viewModel"
+            type="br.com.dio.app.repositories.presentation.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +26,7 @@
             android:fontFamily="@font/quicksand_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/repo_name_placeholder"
+            android:text="@{viewModel.repoName}"
             tools:text="@string/repo_name_placeholder"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -35,7 +35,7 @@
             android:id="@+id/bsRepoDescriptionTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/description_placeholder"
+            android:text="@{viewModel.repoDescription}"
             style="?attr/textAppearanceBody2"
             tools:text="@string/description_placeholder"
             app:layout_constraintStart_toStartOf="parent"

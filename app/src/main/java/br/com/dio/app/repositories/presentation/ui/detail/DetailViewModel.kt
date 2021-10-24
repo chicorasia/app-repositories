@@ -19,6 +19,9 @@ import kotlinx.coroutines.launch
  */
 class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : ViewModel() {
 
+//    TODO: adicionar um getRepoReadMeUseCase
+//    TODO: adicionar um getRepoScreenshotsUseCase
+
     /**
      * Esse campo mantém o Repo como um State, para facilitar
      * a manipulação da UI a partir do resultado da consulta.
@@ -29,6 +32,22 @@ class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : View
     private val _repo = MutableLiveData<State<Repo>>()
     val repo: LiveData<State<Repo>>
         get() = _repo
+
+
+    /**
+     * Por enquanto estou duplicando os dados do Repo
+     * em campos de texto. Mas uma solução melhor seria
+     * usar um adapter e fazer o binding dos dados
+     * corretamente para reduzir o acoplamento
+     */
+    private val _repoName = MutableLiveData<String>()
+    val repoName: LiveData<String>
+        get() = _repoName
+
+    private val _repoDescription = MutableLiveData<String>()
+    val repoDescription: LiveData<String>
+        get() = _repoDescription
+
 
     /**
      * Recupera um único repo da API e atribui ao campo _repo
@@ -46,6 +65,8 @@ class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : View
                 }
                 .collect {
                     _repo.postValue(State.Success(it!!))
+                    _repoName.postValue(it.name)
+                    _repoDescription.postValue(it.description.toString())
                 }
         }
 

@@ -1,21 +1,16 @@
 package br.com.dio.app.repositories.presentation.ui.detail
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
-import br.com.dio.app.repositories.databinding.BottomSheetDialogBinding
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -27,16 +22,11 @@ class DetailFragment : Fragment() {
     private val binding: DetailFragmentBinding by lazy {
         DetailFragmentBinding.inflate(layoutInflater)
     }
-    private val bottomSheetDialogBinding: BottomSheetDialogBinding by lazy {
-        BottomSheetDialogBinding.inflate(layoutInflater)
-    }
 
     private val argumentos: DetailFragmentArgs by navArgs<DetailFragmentArgs>()
 
-    private lateinit var bottomSheetLayout: ConstraintLayout
-    private lateinit var detailBottomSheet: DetailBottomSheet
     private val bottomSheetBehavior by lazy {
-        BottomSheetBehavior.from(bottomSheetLayout)
+        BottomSheetBehavior.from(binding.detailInclude.root)
     }
 
     override fun onCreateView(
@@ -58,12 +48,22 @@ class DetailFragment : Fragment() {
     }
 
     /**
-     * This is a mess...
+     * A bottom sheet está sendo tratada como um layout incluído nesse fragment.
+     * Deve ter uma maneira melhor de fazer isso, movendo-a para um fragmento à parte,
+     * mas isso é o melhor que eu consegui fazer até agora.
      */
     private fun initBottomSheet() {
-        bottomSheetLayout = binding.root.findViewById(R.id.bottomSheetLayout)
-        bottomSheetDialogBinding.lifecycleOwner = viewLifecycleOwner
-        bottomSheetLayout.setOnClickListener {
+
+        binding.detailInclude.viewModel = mViewModel
+
+        /**
+         * É necessário definir o lifeCycleOwner para o LiveDate funcionar corretamente.
+         * Note que não esão sendo usados observers - está tudo sendo resolvido
+         * por meio de data binding no arqui XML
+         */
+        binding.detailInclude.lifecycleOwner = viewLifecycleOwner
+
+        binding.detailInclude.root.setOnClickListener {
             if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
                 bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             } else {
@@ -91,7 +91,6 @@ class DetailFragment : Fragment() {
                 }
                 is State.Success -> {
                     binding.detailHelloText.text = "${it.result.name}"
-                    bottomSheetDialogBinding.bind(it.result)
                 }
             }
         }
@@ -101,9 +100,4 @@ class DetailFragment : Fragment() {
         fun newInstance() = DetailFragment()
     }
 
-}
-
-private fun BottomSheetDialogBinding.bind(result: Repo) {
-    this.repo = result
-    executePendingBindings()
 }
