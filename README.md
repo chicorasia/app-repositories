@@ -11,7 +11,8 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **Ordenação dos resultados**. Os resultados da busca podem ser ordenados por nome do Repo ou por data do último *push*. Isso é possível por meio de novas buscas na API, adicionando o parâmetro `sort` conforme indicado na documentação. As chamadas foram encapsuladas numa classe `Query`, o que permite abstrair os parâmetros e reaproveitar a classe `UseCase<Param, Source>`.
 - **Estética  *on brand***. Cores, fontes e estilo visual conforme projeto gráfico do app e sua "marca".
 - **Items clicáveis**. Os cliques na RecyclerView foram implementados por meio de uma classe ClickListener, com os comportamentos sobrescritos durante a instanciação do Adapter. Optei por essa solução pela sua simplicidade e versatilidade, pois permite que outros comportamentos de clique sejam encapsulados na mesma classe. Essa é uma boa prática recomendada pela equipe da Google.
-- **Detalhes do Repo**. Os detalhes de um Repositório são exibidos na em uma tela (fragmento) à parte.  
+- **Detalhes do Repo**. Os detalhes de um Repositório são exibidos na em uma tela (fragmento) à parte; se o repositório tiver um arquivo README.md, seu conteúdo é exibido numa *bottom sheet* na tela de detalhes.
+- **Github raw content**. Usa os dados do repositório para acessar os endpoints no domínio `raw.githubusercontent.com` e exibir o conteúdo do README.
 - **Uso avançado de string resources**. Uso de *Strings* para a formatação de texto e *string arrays* para a seleção contextual da String.
 - ***Chips* expressivos**. Esses elementos da UI são deixados mais comunicativos por meio do uso de cor, ícone e texto. Foi usado `Map<K, V>` para manter as constantes. Isso evita o acoplamento do código do *BindingAdapter* e facilita a adição de mais linguagens e cores.
 - **Data do último push**. Usa um Chip para apresentar a data do último push, formatada para o padrão brasileiro.  
