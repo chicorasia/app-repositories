@@ -82,4 +82,7 @@ dependencies {
     //Datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
 
+    //Markdown viewer
+    implementation 'com.github.mukeshsolanki:MarkdownView-Android:1.0.7'
+
 }
