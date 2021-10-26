@@ -4,7 +4,6 @@ import android.os.RemoteException
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.services.GithubService
 import retrofit2.HttpException
-import java.lang.Exception
 
 /**
  * Essa classe implementa a interface UserInfo, recebendo os services

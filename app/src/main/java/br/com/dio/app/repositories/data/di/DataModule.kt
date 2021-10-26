@@ -1,9 +1,15 @@
 package br.com.dio.app.repositories.data.di
 
 import android.util.Log
+import br.com.dio.app.repositories.data.model.Repo
+import br.com.dio.app.repositories.data.repo.RepoInfo
+import br.com.dio.app.repositories.data.repo.RepoInfoImpl
+import br.com.dio.app.repositories.data.repodetails.RepoDetails
+import br.com.dio.app.repositories.data.repodetails.RepoDetailsImpl
 import br.com.dio.app.repositories.data.repositories.RepoRepository
 import br.com.dio.app.repositories.data.repositories.RepoRepositoryImpl
 import br.com.dio.app.repositories.data.services.GithubService
+import br.com.dio.app.repositories.data.services.GithubServiceRaw
 import br.com.dio.app.repositories.data.user.UserInfo
 import br.com.dio.app.repositories.data.user.UserInfoImpl
 import com.squareup.moshi.Moshi
@@ -15,6 +21,7 @@ import org.koin.core.module.Module
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 /**
  * Essa object class é reponsável por instanciar e configurar os serviços web.
@@ -25,8 +32,15 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object DataModule {
 
+    /**
+     * Estou usando duas constantes para a URL: uma acessa a API geral, a
+     * outra acessa o conteúdo bruto. Cada uma delas é vinculada a um
+     * GithubService específico.
+     */
     private const val OK_HTTP = "Ok Http"
     private const val BASE_URL = "https://api.github.com"
+    private const val RAW_CONTENT_URL = "https://raw.githubusercontent.com"
+
 
     /**
      * Essa função fica exposta publicamente e é chamada na classe App.
@@ -34,7 +48,8 @@ object DataModule {
      * uma única chamada. Isso evita duplicação de código na classe App.
      */
     fun load() {
-        loadKoinModules(networkModule() + repositoriesModule() + userModule())
+        loadKoinModules(networkModule() + repositoriesModule()
+                + userModule() + repoModule())
     }
 
     /**
@@ -63,10 +78,18 @@ object DataModule {
 
             /**
              * Finalmente, cria um objeto Retrofit usando o OkHttpClient
-             * e a factory de conversão Json
+             * e a factory de conversão Json. Esse é o service principal
+             * que acessa a API.
              */
             single {
-                createService<GithubService>(get(), get())
+                createService<GithubService>(get(), get(), BASE_URL)
+            }
+
+            /**
+             * E esse instancia o serviço que acessa o conteúdo bruto
+             */
+            single {
+                createService<GithubServiceRaw>(get(), get(), RAW_CONTENT_URL)
             }
 
         }
@@ -92,20 +115,41 @@ object DataModule {
         }
     }
 
+
+    /**
+     * Esse método é responsável por instanciar um RepoInfoImpl; como no
+     * caso do UserInfo, preferi usar uma factory porque faz sentido ter um singleton.
+     */
+    private fun repoModule() : Module {
+        return module {
+            factory<RepoInfo> { RepoInfoImpl(get()) }
+            factory<RepoDetails> { RepoDetailsImpl(get()) }
+        }
+    }
+
     /**
      * Essa função instancia um objeto Retrofit a partir dos
      * parâmetros recebidos via construtor: o cliente OkHttp (por causa
      * do interceptor) e o conversor de Json.
+     * São usados dois conversores diferentes. O ScalarConverter é invocado
+     * quando se trata do acesso ao endpoint de raw content
+     * enquanto o Moshi é utilizado na situação padrão.
+     * O tipo de serviço (normal ou raw) é definido à partir da string
+     * de URL passada como parâmetro do construtor.
      */
-    private inline fun <reified T> createService(client: OkHttpClient, factory: Moshi): T {
+    private inline fun <reified T> createService(client: OkHttpClient, factory: Moshi, url: String): T {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(url)
             .client(client)
-            .addConverterFactory(MoshiConverterFactory.create(factory))
+            .apply {
+                if (url == RAW_CONTENT_URL) addConverterFactory(ScalarsConverterFactory.create())
+                else addConverterFactory(MoshiConverterFactory.create(factory))
+            }
             .build()
             .create(T::class.java)
 
     }
+
 
 
 }

@@ -44,5 +44,8 @@
         <argument
             android:name="repoName"
             app:argType="string" />
+        <argument
+            android:name="owner"
+            app:argType="string" />
     </fragment>
 </navigation>

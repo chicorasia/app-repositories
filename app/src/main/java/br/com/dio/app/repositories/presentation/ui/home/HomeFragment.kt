@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.GithubApiFilter
+import br.com.dio.app.repositories.core.State
+import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.user.UsuarioLogado
 import br.com.dio.app.repositories.databinding.HomeFragmentBinding
 import br.com.dio.app.repositories.presentation.adapter.RepoListAdapter
@@ -39,8 +41,8 @@ class HomeFragment : Fragment() {
     private val adapter = RepoListAdapter(RepoListClickListener { repo ->
         mViewModel.navegaParaDetail(repo)
         mViewModel.doneNavegaParaDetail()
-    }
-    )
+    })
+
     val user = UsuarioLogado.usuarioLogado
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -167,17 +169,16 @@ class HomeFragment : Fragment() {
     private fun initRepoObserver(view: View) {
         mViewModel.repo.observe(viewLifecycleOwner) {
             when (it) {
-                HomeViewModel.State.Loading -> {
+                State.Loading -> {
                     mViewModel.showProgressBar()
                 }
-                is HomeViewModel.State.Error -> {
+                is State.Error -> {
                     mViewModel.hideProgressBar()
                     Snackbar.make(view, it.error.message.toString(), Snackbar.LENGTH_LONG).show()
                 }
-                is HomeViewModel.State.Success -> {
+                is State.Success -> {
                     mViewModel.hideProgressBar()
-                    adapter.submitList(it.list)
-
+                    adapter.submitList(it.result)
                 }
             }
         }
@@ -186,13 +187,18 @@ class HomeFragment : Fragment() {
     /**
      * Esse método configura o observer do campo navegaParaDetail e a navegação
      * para o fragmento de detalhes do repo.
-     * TODO: passar um Repo como parâmetro.
+     * Optei por passar somente os parâmetros owner e repoName como String
+     * porque o DetailViewModel emprega um caso de uso próprio para carregar
+     * os detalhes do Repo.
      */
     private fun initNavegacaoDetail() {
         mViewModel.navegaParaDetail.observe(viewLifecycleOwner) { repo ->
-           repo?.let {
+            repo?.let {
                 val directions =
-                    HomeFragmentDirections.vaiDeHomeFragmentParaDetailFragment(repo.name)
+                    HomeFragmentDirections.vaiDeHomeFragmentParaDetailFragment(
+                        repo.name,
+                        repo.owner.login
+                    )
                 findNavController().navigate(directions)
             }
         }

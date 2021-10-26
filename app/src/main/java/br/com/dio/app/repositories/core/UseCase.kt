@@ -1,11 +1,12 @@
 package br.com.dio.app.repositories.core
 
+import br.com.dio.app.repositories.data.model.Repo
 import kotlinx.coroutines.flow.Flow
 
 abstract class UseCase<Param, Source> {
     abstract suspend fun execute(param: Param): Flow<Source>
 
-    open suspend operator fun invoke(param: Param) = execute(param)
+    open suspend operator fun invoke(param: Param): Flow<Source> = execute(param)
 
     abstract class NoParam<Source> : UseCase<None, Flow<Source>>() {
         abstract suspend fun execute(): Flow<Source>

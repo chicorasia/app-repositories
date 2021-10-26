@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dio.app.repositories.core.GithubApiFilter
 import br.com.dio.app.repositories.core.Query
+import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.data.model.User
 import br.com.dio.app.repositories.data.user.UsuarioLogado
@@ -88,8 +89,8 @@ class HomeViewModel(
      * Esse campo mantém o State do Flow. Foi usada a técnica de encapsulamento
      * padrão recomendada pela Google.
      */
-    private val _repo = MutableLiveData<State>()
-    val repo: LiveData<State>
+    private val _repo = MutableLiveData<State<List<Repo>>>()
+    val repo: LiveData<State<List<Repo>>>
         get() = _repo
 
     /**
@@ -101,7 +102,7 @@ class HomeViewModel(
      */
     fun getRepoList(user: String, sorting: GithubApiFilter) {
         viewModelScope.launch {
-            listUserRepositoriesUseCase(Query(user = user, sorting = sorting.sortby))
+            listUserRepositoriesUseCase(Query(user = user, option1 = sorting.sortby))
                 .onStart {
                     _repo.postValue(State.Loading)
                     _user.postValue(UsuarioLogado.usuarioLogado)
@@ -114,31 +115,5 @@ class HomeViewModel(
                 }
         }
     }
-
-    /**
-     * Essa classe selada representa os três estados possíveis do Flow: carregando, erro
-     * e sucesso.
-     */
-    sealed class State {
-
-        /**
-         * O estado de Loading pode ser um object porque não possui atributos.
-         */
-        object Loading : State()
-
-        /**
-         * Os casos de Success e Failure possuem atributos, então é necessário
-         * criá-los como data classes. O atributo é modificado conforme o estado:
-         * uma List<Repo> no caso de sucesso e um Throwable no caso de falha.
-         */
-        data class Success(val list: List<Repo>) : State()
-
-        data class Error(val error: Throwable) : State()
-    }
-
-    class DetailNavigation(
-        var trigger: Boolean = false,
-        var repo: Repo? = null
-    )
 
 }

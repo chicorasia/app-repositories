@@ -8,4 +8,6 @@
     <string name="lista_repo_title">Lista de Repositórios</string>
     <string name="welcome">welcome,\nbienvenue,\nbem-vindos</string>
     <string name="detail_placeholder">Hello, I\'m Detail Fragment!</string>
+    <string name="description_placeholder">App mobile desenvolvido no módulo *Criando um app de cartão de visitas em Kotlin* - Bootcamp DIO Inter Android Developer</string>
+    <string name="repo_name_placeholder">RepoName</string>
 </resources>
