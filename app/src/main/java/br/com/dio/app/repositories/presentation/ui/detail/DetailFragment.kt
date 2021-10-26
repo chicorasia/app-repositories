@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import br.com.dio.app.repositories.core.State
-import br.com.dio.app.repositories.data.model.Repo
+import br.com.dio.app.repositories.databinding.DetailBottomSheetBinding
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,21 +54,39 @@ class DetailFragment : Fragment() {
      */
     private fun initBottomSheet() {
 
-        binding.detailInclude.viewModel = mViewModel
+        with(binding.detailInclude) {
 
-        /**
-         * É necessário definir o lifeCycleOwner para o LiveDate funcionar corretamente.
-         * Note que não esão sendo usados observers - está tudo sendo resolvido
-         * por meio de data binding no arqui XML
-         */
-        binding.detailInclude.lifecycleOwner = viewLifecycleOwner
+            viewModel = mViewModel
+            behaviour = bottomSheetBehavior
 
-        binding.detailInclude.root.setOnClickListener {
-            if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            } else {
-                bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            /**
+             * É necessário definir o lifeCycleOwner para o LiveDate funcionar corretamente.
+             * Note que não estão sendo usados observers - está tudo sendo resolvido
+             * por meio de data binding no arquivo XML
+             */
+            lifecycleOwner = viewLifecycleOwner
+
+
+            /**
+             * Atribuindo os comportamentos tanto à bottom sheet quanto ao button
+             */
+            root.setOnClickListener {
+                toggleBottomSheetState()
             }
+            bsCloseBtn.setOnClickListener {
+                toggleBottomSheetState()
+            }
+        }
+
+    }
+
+    private fun DetailBottomSheetBinding.toggleBottomSheetState() {
+        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            bsCloseBtn.visibility = View.VISIBLE
+        } else {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+            bsCloseBtn.visibility = View.GONE
         }
     }
 

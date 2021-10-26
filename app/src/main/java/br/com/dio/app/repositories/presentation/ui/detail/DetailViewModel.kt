@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : ViewModel() {
 
 //    TODO: adicionar um getRepoReadMeUseCase
-//    TODO: adicionar um getRepoScreenshotsUseCase
+//    TODO: adicionar um getRepoScreenshots
 
     /**
      * Esse campo mantém o Repo como um State, para facilitar

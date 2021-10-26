@@ -3,43 +3,76 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--    Adicionando as variáveis e imports para controlar a visibilidade da bottom sheet -->
     <data>
+
         <variable
             name="viewModel"
             type="br.com.dio.app.repositories.presentation.ui.detail.DetailViewModel" />
+
+        <variable
+            name="behaviour"
+            type="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+
+        <import type="android.view.View" />
+
+        <import type="com.google.android.material.bottomsheet.BottomSheetBehavior.State" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bottomSheetLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/bottomSheetLayout"
         android:orientation="vertical"
+        android:padding="@dimen/layout_half_padding"
+        android:background="@color/grey_lightest"
+        android:elevation="@dimen/cardview_default_elevation"
         app:behavior_hideable="false"
         app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-        android:background="@color/white">
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
+        <!--        State.STATE_COLLAPSED tem o valor 4 -->
+        <ImageButton
+            android:id="@+id/bsCloseBtn"
+            android:layout_width="@dimen/material_btn_dimension"
+            android:layout_height="@dimen/material_btn_dimension"
+            android:background="?attr/actionBarItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_close"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/grey_darkest"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/bsRepoNameTv"
             style="?attr/textAppearanceHeadline6"
-            android:fontFamily="@font/quicksand_bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_bold"
             android:text="@{viewModel.repoName}"
-            tools:text="@string/repo_name_placeholder"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/bsCloseBtn"
+            tools:text="@string/repo_name_placeholder" />
 
         <TextView
             android:id="@+id/bsRepoDescriptionTv"
+            style="?attr/textAppearanceBody2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.repoDescription}"
-            style="?attr/textAppearanceBody2"
-            tools:text="@string/description_placeholder"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bsRepoNameTv" />
+            app:layout_constraintTop_toBottomOf="@id/bsRepoNameTv"
+            tools:text="@string/description_placeholder" />
+
+        <TextView
+            android:id="@+id/bsReadme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="README.MD contents"
+            app:layout_constraintTop_toBottomOf="@id/bsRepoDescriptionTv" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
