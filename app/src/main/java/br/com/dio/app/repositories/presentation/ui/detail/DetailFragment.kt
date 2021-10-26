@@ -76,6 +76,11 @@ class DetailFragment : Fragment() {
             bsCloseBtn.setOnClickListener {
                 toggleBottomSheetState()
             }
+
+            mViewModel.repoReadme.observe(viewLifecycleOwner) {
+                bsReadme.setMarkDownText(it)
+            }
+
         }
 
     }

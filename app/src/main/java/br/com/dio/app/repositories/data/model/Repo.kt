@@ -25,5 +25,7 @@ data class Repo (
     val updatedAt: String,
     @Json(name = "pushed_at")
     val pushedAt: String,
-    val license: License?
+    val license: License?,
+    @Json(name = "default_branch")
+    val defaultBranch: String
 )

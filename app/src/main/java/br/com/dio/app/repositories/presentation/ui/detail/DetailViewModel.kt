@@ -48,6 +48,9 @@ class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : View
     val repoDescription: LiveData<String>
         get() = _repoDescription
 
+    private val _repoReadme = MutableLiveData<String>()
+    val repoReadme: LiveData<String>
+        get() = _repoReadme
 
     /**
      * Recupera um único repo da API e atribui ao campo _repo
@@ -67,6 +70,7 @@ class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : View
                     _repo.postValue(State.Success(it!!))
                     _repoName.postValue(it.name)
                     _repoDescription.postValue(it.description.toString())
+                    _repoReadme.postValue("Default branch: ${it.defaultBranch}")
                 }
         }
 
