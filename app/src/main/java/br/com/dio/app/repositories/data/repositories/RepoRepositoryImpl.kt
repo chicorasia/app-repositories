@@ -18,12 +18,12 @@ class RepoRepositoryImpl(private val service: GithubService) : RepoRepository {
     /**
      * Implementação o método obrigatório; é usado o contrutor flow { } para
      * converter e emitir a lista recebida da na forma de um fluxo.
-     * Recebe um objeto RepoQuery, que traz o nome de usuário e
+     * Recebe um objeto Query, que traz o nome de usuário e
      * o critério de ordenação.
      */
     override suspend fun listRepositories(param: Query): Flow<List<Repo>> = flow {
         try {
-            val repoList = service.listRepositories(param.user, param.option)
+            val repoList = service.listRepositories(param.user, param.option1)
             emit(repoList)
         } catch (ex: HttpException) {
             throw RemoteException("Não foi possível acessar a API web!")

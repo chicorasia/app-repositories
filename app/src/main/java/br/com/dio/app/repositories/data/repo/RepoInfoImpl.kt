@@ -12,7 +12,6 @@ import retrofit2.HttpException
  */
 class RepoInfoImpl(private val githubService: GithubService) : RepoInfo {
 
-
     /**
      * Implementação do método obrigatório
      */

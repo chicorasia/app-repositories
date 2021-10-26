@@ -8,18 +8,19 @@ import br.com.dio.app.repositories.core.Query
 import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onStart
+import br.com.dio.app.repositories.domain.GetRepoReadmeUseCase
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
 /**
  * Essa classe dá suporte ao DetailFragment
  */
-class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : ViewModel() {
+class DetailViewModel(
+    private val getRepoInfoUseCase: GetRepoInfoUseCase,
+    private val getRepoReadmeUseCase: GetRepoReadmeUseCase,
+) : ViewModel() {
 
-//    TODO: adicionar um getRepoReadMeUseCase
 //    TODO: adicionar um getRepoScreenshots
 
     /**
@@ -70,10 +71,17 @@ class DetailViewModel(private val getRepoInfoUseCase: GetRepoInfoUseCase) : View
                     _repo.postValue(State.Success(it!!))
                     _repoName.postValue(it.name)
                     _repoDescription.postValue(it.description.toString())
-                    _repoReadme.postValue("Default branch: ${it.defaultBranch}")
+                    fetchReadme(it)
                 }
         }
 
+    }
+
+    fun fetchReadme(repo: Repo) {
+        val query = Query(repo.owner.login, repo.name, repo.defaultBranch)
+        viewModelScope.launch {
+            _repoReadme.value = getRepoReadmeUseCase(query).first()
+        }
     }
 
 }

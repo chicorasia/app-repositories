@@ -77,6 +77,9 @@ class DetailFragment : Fragment() {
                 toggleBottomSheetState()
             }
 
+            /**
+             * Atribui o string do arquivo README.md à visualização de Markdown
+             */
             mViewModel.repoReadme.observe(viewLifecycleOwner) {
                 bsReadme.setMarkDownText(it)
             }

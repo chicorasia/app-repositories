@@ -17,10 +17,10 @@ class GetRepoInfoUseCase(private val repoInfo: RepoInfo) : UseCase<Query, Repo?>
 
     override suspend fun execute(param: Query): Flow<Repo?> {
         return flow {
-            param.option?.let {
+            param.option1?.let {
                 emit(repoInfo.getRepo(
                     owner = param.user,
-                    repoName = param.option
+                    repoName = param.option1
                 ))
             }
         }
