@@ -9,6 +9,7 @@ import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
 import br.com.dio.app.repositories.domain.GetRepoReadmeUseCase
+import br.com.dio.app.repositories.presentation.getScreenshotFileNamesAsList
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -49,9 +50,21 @@ class DetailViewModel(
     val repoDescription: LiveData<String>
         get() = _repoDescription
 
+
     private val _repoReadme = MutableLiveData<String>()
     val repoReadme: LiveData<String>
         get() = _repoReadme
+
+
+    /**
+     * Um campo para manter uma lista de screenshots.
+     * Algo me diz que isso deveria ir para uma classe à parte.
+     * TODO: Usar uma classe State para melhorar a representação no Fragment
+     */
+    private val _repoScreenshot = MutableLiveData<Int>()
+    val repoScreenshot: LiveData<Int>
+        get() = _repoScreenshot
+
 
     /**
      * Recupera um único repo da API e atribui ao campo _repo
@@ -71,17 +84,27 @@ class DetailViewModel(
                     _repo.postValue(State.Success(it!!))
                     _repoName.postValue(it.name)
                     _repoDescription.postValue(it.description.toString())
-                    fetchReadme(it)
+                    with(it) {
+                        fetchReadme(this)
+                    }
                 }
         }
 
     }
 
-    fun fetchReadme(repo: Repo) {
+    /**
+     * Esse método recupera o arquivo md do README e atribui
+     * ao campo _repoReadme.
+     */
+    private fun fetchReadme(repo: Repo) {
         val query = Query(repo.owner.login, repo.name, repo.defaultBranch)
         viewModelScope.launch {
             _repoReadme.value = getRepoReadmeUseCase(query).first()
         }
+    }
+
+    fun fetchScreenshot(readme: String) {
+        _repoScreenshot.value = readme.getScreenshotFileNamesAsList().size
     }
 
 }
