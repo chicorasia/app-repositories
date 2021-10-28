@@ -89,24 +89,35 @@ class DetailFragment : Fragment() {
 
     }
 
+    /**
+     * Esse método alterna o estado da Bottom Sheet. Ele também está
+     * com as responsabilidades de virar o ícone e exibir/ocultar
+     * o nome do Repo. Isso pode ser melhor resolvido por meio de um
+     * BindingAdapter.
+     */
     private fun DetailBottomSheetBinding.toggleBottomSheetState() {
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            bsCloseBtn.visibility = View.VISIBLE
+            bsCloseBtn.rotation = 180F
+            bsRepoNameTv.visibility = View.GONE
         } else {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            bsCloseBtn.visibility = View.GONE
+            bsCloseBtn.rotation = 0F
+            bsRepoNameTv.visibility = View.VISIBLE
         }
     }
 
     /**
      * Acessa os argumentos recebidos via Navigation e atualiza dos dados na tela.
-     * Por enquanto, apenas o nome do Repo.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel.fetchRepo(owner = argumentos.owner, repoName = argumentos.repoName)
     }
 
+    /**
+     * Processa o string do README e atualiza a contagem de screenshots
+     * no ViewModel
+     */
     private fun initRepoObserver() {
         mViewModel.repoReadme.observe(viewLifecycleOwner) {
             it?.let {
@@ -115,6 +126,9 @@ class DetailFragment : Fragment() {
         }
     }
 
+    /**
+     * Exibe o estado e o resultado do processamento do README.
+     */
     private fun initScreenshotObserver() {
         mViewModel.repoScreenshot.observe(viewLifecycleOwner) {
             when (it) {

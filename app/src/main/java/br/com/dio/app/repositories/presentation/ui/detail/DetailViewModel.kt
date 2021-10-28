@@ -48,9 +48,13 @@ class DetailViewModel(
     val repoName: LiveData<String>
         get() = _repoName
 
-    private val _repoDescription = MutableLiveData<String>()
-    val repoDescription: LiveData<String>
-        get() = _repoDescription
+    /**
+     * Esse campo não é mais necessário porque tirei
+     * o TextView de description na Bottom Sheet.
+     */
+//    private val _repoDescription = MutableLiveData<String>()
+//    val repoDescription: LiveData<String>
+//        get() = _repoDescription
 
 
     private val _repoReadme = MutableLiveData<String>()
@@ -84,7 +88,7 @@ class DetailViewModel(
                 .collect {
                     _repo.postValue(State.Success(it!!))
                     _repoName.postValue(it.name)
-                    _repoDescription.postValue(it.description.toString())
+//                    _repoDescription.postValue(it.description.toString())
                     with(it) {
                         fetchReadme(this)
                     }
