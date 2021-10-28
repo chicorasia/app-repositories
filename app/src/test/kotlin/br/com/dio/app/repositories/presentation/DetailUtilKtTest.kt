@@ -3,6 +3,10 @@ package br.com.dio.app.repositories.presentation
 import junit.framework.Assert.assertTrue
 import org.junit.Test
 
+
+/**
+ * Essa classe tem testes de unidade para os métodos de DetailUtil
+ */
 internal class DetailUtilKtTest {
 
     val markdown = """- Compartilhar um cartão a partir da tela de home

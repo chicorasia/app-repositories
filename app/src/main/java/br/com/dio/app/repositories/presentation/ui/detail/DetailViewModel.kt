@@ -10,8 +10,10 @@ import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
 import br.com.dio.app.repositories.domain.GetRepoReadmeUseCase
 import br.com.dio.app.repositories.presentation.getScreenshotFileNamesAsList
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 
 /**
@@ -59,10 +61,9 @@ class DetailViewModel(
     /**
      * Um campo para manter uma lista de screenshots.
      * Algo me diz que isso deveria ir para uma classe à parte.
-     * TODO: Usar uma classe State para melhorar a representação no Fragment
      */
-    private val _repoScreenshot = MutableLiveData<Int>()
-    val repoScreenshot: LiveData<Int>
+    private val _repoScreenshot = MutableLiveData<State<Int>>()
+    val repoScreenshot: LiveData<State<Int>>
         get() = _repoScreenshot
 
 
@@ -89,7 +90,6 @@ class DetailViewModel(
                     }
                 }
         }
-
     }
 
     /**
@@ -103,8 +103,24 @@ class DetailViewModel(
         }
     }
 
+    /**
+     * Esse método processa o String do readme para extrair
+     * os nomes de arquivo das screenshots, usando a função
+     * definida em DetailUtil
+     */
     fun fetchScreenshot(readme: String) {
-        _repoScreenshot.value = readme.getScreenshotFileNamesAsList().size
+        viewModelScope.launch {
+            _repoScreenshot.postValue(State.Loading)
+            /**
+             * Um atraso de 500 milissegundos só para efeitos cosméticos...
+             */
+            delay(500)
+            try {
+                _repoScreenshot.postValue(State.Success<Int>(readme.getScreenshotFileNamesAsList().size))
+            } catch (ex: Exception) {
+                _repoScreenshot.postValue(State.Error(ex))
+            }
+        }
     }
 
 }

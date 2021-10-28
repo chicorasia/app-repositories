@@ -129,15 +129,19 @@ object DataModule {
 
     /**
      * Essa função instancia um objeto Retrofit a partir dos
-     * parâmetros recebidos via construtor: o cliente OkHttp (por causa
-     * do interceptor) e o conversor de Json.
+     * parâmetros recebidos via construtor: o cliente OkHttp (por causa do interceptor)
+     * e o conversor de Json.
      * São usados dois conversores diferentes. O ScalarConverter é invocado
      * quando se trata do acesso ao endpoint de raw content
      * enquanto o Moshi é utilizado na situação padrão.
      * O tipo de serviço (normal ou raw) é definido à partir da string
      * de URL passada como parâmetro do construtor.
      */
-    private inline fun <reified T> createService(client: OkHttpClient, factory: Moshi, url: String): T {
+    private inline fun <reified T> createService(
+        client: OkHttpClient,
+        factory: Moshi,
+        url: String
+    ): T {
         return Retrofit.Builder()
             .baseUrl(url)
             .client(client)

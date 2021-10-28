@@ -42,6 +42,7 @@ class DetailFragment : Fragment() {
 
         initBottomSheet()
         initRepoObserver()
+        initScreenshotObserver()
 
         return binding.root
 
@@ -106,27 +107,26 @@ class DetailFragment : Fragment() {
         mViewModel.fetchRepo(owner = argumentos.owner, repoName = argumentos.repoName)
     }
 
-    /**
-     * TODO: reorganizar esse observer para usar States
-     */
-    fun initRepoObserver() {
-//        mViewModel.repo.observe(viewLifecycleOwner) {
-//            when(it) {
-//                State.Loading -> {
-//                    binding.detailHelloText.text = "Carregando..."
-//                }
-//                is State.Error -> {
-//                    binding.detailHelloText.text = "Ocorreu um erro ao carregar"
-//                }
-//                is State.Success -> {
-//                    binding.detailHelloText.text = mViewModel.repoScreenshot.value.toString()
-//                }
-//            }
-//        }
+    private fun initRepoObserver() {
         mViewModel.repoReadme.observe(viewLifecycleOwner) {
             it?.let {
                 mViewModel.fetchScreenshot(it)
-                binding.detailHelloText.text = "Esse repo possui ${mViewModel.repoScreenshot.value.toString()} screenshots!"
+            }
+        }
+    }
+
+    private fun initScreenshotObserver() {
+        mViewModel.repoScreenshot.observe(viewLifecycleOwner) {
+            when (it) {
+                State.Loading -> {
+                    binding.detailHelloText.text = "Carregando..."
+                }
+                is State.Error -> {
+                    binding.detailHelloText.text = "Ocorreu um erro ao carregar"
+                }
+                is State.Success -> {
+                    binding.detailHelloText.text = "Esse repo possui ${it.result} screenshots!"
+                }
             }
         }
     }
