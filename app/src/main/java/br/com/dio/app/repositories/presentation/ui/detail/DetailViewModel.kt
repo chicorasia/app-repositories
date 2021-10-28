@@ -1,6 +1,5 @@
 package br.com.dio.app.repositories.presentation.ui.detail
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,10 +12,11 @@ import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
 import br.com.dio.app.repositories.domain.GetRepoReadmeUseCase
 import br.com.dio.app.repositories.presentation.getScreenshotFileNamesAsList
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.lang.Exception
 
 
 /**
@@ -94,7 +94,6 @@ class DetailViewModel(
                 .collect {
                     _repo.postValue(State.Success(it!!))
                     _repoName.postValue(it.name)
-//                    _repoDescription.postValue(it.description.toString())
                     with(it) {
                         fetchReadme(this)
                     }
@@ -104,7 +103,8 @@ class DetailViewModel(
 
     /**
      * Esse método recupera o arquivo md do README e atribui
-     * ao campo _repoReadme.
+     * ao campo _repoReadme. Se o repo não tiver um arquivo,
+     * trata a RemoteException adicionando um texto 'fallback'.
      */
     private fun fetchReadme(repo: Repo) {
         val query = Query(repo.owner.login, repo.name, repo.defaultBranch)
