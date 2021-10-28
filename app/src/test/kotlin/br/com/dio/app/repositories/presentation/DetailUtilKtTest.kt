@@ -41,6 +41,18 @@ Adicionadas as funcionalidades:
 - Editar um cartão
                     """
 
+    val markdownWithJpg = """- Compartilhar um cartão a partir da tela de home
+                    - Remover um cartão com clique longo no item da lista
+                    ## Screenshots
+
+                    ![Screenshot_1](Screenshot_1.jpg)
+                    ![Screenshot_2](Screenshot_2.jpg)
+                    ![Screenshot_3](Screenshot_3.png)
+                    ![Screenshot_4](Screenshot_4.png)
+                    ![Screenshot_5](Screenshot_5.png)
+                    ****
+                    """
+
     @Test
     fun dadoUmaStringDeTexto_deveExtraiNomesDeArquivosDasScreenshots() {
 
@@ -68,4 +80,16 @@ Adicionadas as funcionalidades:
 
     }
 
+    @Test
+    fun dadoUmaStringDeTextoComJpg_deveExtraiNomesDeArquivosDasScreenshots() {
+
+        val setScreenshot = markdownWithJpg.getScreenshotFileNamesAsList()
+        val result = setOf("Screenshot_1.jpg", "Screenshot_2.jpg", "Screenshot_3.png", "Screenshot_4.png", "Screenshot_5.png")
+
+        println(setScreenshot)
+        println(result)
+
+        assertTrue(setScreenshot == result)
+
+    }
 }

@@ -14,7 +14,7 @@ package br.com.dio.app.repositories.presentation
  */
 internal fun String.getScreenshotFileNamesAsList() : Set<String> {
 
-    val regex = Regex("([a-zA-Z0-9_&%$#@-])*.png")
+    val regex = Regex("([a-zA-Z0-9_&%$#@-])*.png|([a-zA-Z0-9_&%\$#@-])*.jpg")
     val matches = regex.findAll(this)
     return matches.map {
         it.value
