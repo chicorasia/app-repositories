@@ -1,10 +1,12 @@
 package br.com.dio.app.repositories.presentation.ui.detail
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dio.app.repositories.core.Query
+import br.com.dio.app.repositories.core.RemoteException
 import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
@@ -13,12 +15,16 @@ import br.com.dio.app.repositories.presentation.getScreenshotFileNamesAsList
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import java.lang.Exception
 
 
 /**
  * Essa classe dá suporte ao DetailFragment
  */
+
+const val REPO_README_FALLBACK = "*Este repo não possui um arquivo README.md*"
+
 class DetailViewModel(
     private val getRepoInfoUseCase: GetRepoInfoUseCase,
     private val getRepoReadmeUseCase: GetRepoReadmeUseCase,
@@ -103,7 +109,12 @@ class DetailViewModel(
     private fun fetchReadme(repo: Repo) {
         val query = Query(repo.owner.login, repo.name, repo.defaultBranch)
         viewModelScope.launch {
-            _repoReadme.value = getRepoReadmeUseCase(query).first()
+            try {
+                _repoReadme.value = getRepoReadmeUseCase(query).first()
+            } catch (ex: RemoteException) {
+                _repoReadme.value = REPO_README_FALLBACK
+            }
+
         }
     }
 

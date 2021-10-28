@@ -82,7 +82,7 @@ class DetailFragment : Fragment() {
              * Atribui o string do arquivo README.md à visualização de Markdown
              */
             mViewModel.repoReadme.observe(viewLifecycleOwner) {
-                bsReadme.setMarkDownText(it)
+                it?.let{ bsReadme.setMarkDownText(it) }
             }
 
         }
