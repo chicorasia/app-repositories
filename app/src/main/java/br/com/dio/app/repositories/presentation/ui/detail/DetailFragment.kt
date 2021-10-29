@@ -11,6 +11,7 @@ import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.databinding.DetailBottomSheetBinding
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.limerse.slider.model.CarouselItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -43,8 +44,23 @@ class DetailFragment : Fragment() {
         initBottomSheet()
         initRepoObserver()
         initScreenshotObserver()
+        initCarousel()
 
         return binding.root
+
+    }
+
+    /**
+     * Inicializa o carossel de imagens
+     */
+    private fun initCarousel() {
+        with(binding.detailCarousel) {
+            registerLifecycle(lifecycle)
+            mViewModel.repoListCarouselItem.observe(viewLifecycleOwner) {
+                setData(mViewModel.repoListCarouselItem.value ?: emptyList<CarouselItem>())
+            }
+        }
+
 
     }
 

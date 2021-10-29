@@ -14,7 +14,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPS
 @BindingAdapter("bsButtonIv")
 fun ImageView.setButtonImage(behavior: BottomSheetBehavior<*>) {
     behavior.state?.let {
-        if (it.equals(STATE_COLLAPSED)) {
+        if (it == STATE_COLLAPSED) {
             setImageResource(R.drawable.ic_up)
         } else {
             setImageResource(R.drawable.ic_close)

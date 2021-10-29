@@ -10,7 +10,9 @@ import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
 import br.com.dio.app.repositories.domain.GetRepoReadmeUseCase
+import br.com.dio.app.repositories.domain.di.GetRepoScreenshotUseCase
 import br.com.dio.app.repositories.presentation.getScreenshotFileNamesAsList
+import com.limerse.slider.model.CarouselItem
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
@@ -30,7 +32,21 @@ class DetailViewModel(
     private val getRepoReadmeUseCase: GetRepoReadmeUseCase,
 ) : ViewModel() {
 
-//    TODO: adicionar um getRepoScreenshots
+
+    /**
+     * Esse use case vai ser usado para gerar uma lista de URLs das screenshots no
+     * formato esperado pelo Carousel. Como ele precisa receber um repo como
+     * parâmetro do construtor, optei por uma inicialização tardia
+     * depois que o repo é recuperado da API
+     */
+    private lateinit var getRepoScreenshotsUseCase: GetRepoScreenshotUseCase
+
+    /**
+     *
+     */
+    private val _repoListCarouselItem = MutableLiveData<List<CarouselItem>>()
+    val repoListCarouselItem: LiveData<List<CarouselItem>>
+        get() = _repoListCarouselItem
 
     /**
      * Esse campo mantém o Repo como um State, para facilitar
@@ -54,15 +70,6 @@ class DetailViewModel(
     val repoName: LiveData<String>
         get() = _repoName
 
-    /**
-     * Esse campo não é mais necessário porque tirei
-     * o TextView de description na Bottom Sheet.
-     */
-//    private val _repoDescription = MutableLiveData<String>()
-//    val repoDescription: LiveData<String>
-//        get() = _repoDescription
-
-
     private val _repoReadme = MutableLiveData<String>()
     val repoReadme: LiveData<String>
         get() = _repoReadme
@@ -78,7 +85,9 @@ class DetailViewModel(
 
 
     /**
-     * Recupera um único repo da API e atribui ao campo _repo
+     * Recupera um único repo da API e atribui ao campo _repo.
+     * Depois, instancia o GetRepoScreenShot com o objeto
+     * recebido da API
      */
 
     fun fetchRepo(owner: String, repoName: String) {
@@ -93,6 +102,7 @@ class DetailViewModel(
                 }
                 .collect {
                     _repo.postValue(State.Success(it!!))
+                    getRepoScreenshotsUseCase = GetRepoScreenshotUseCase(it)
                     _repoName.postValue(it.name)
                     with(it) {
                         fetchReadme(this)
@@ -121,7 +131,10 @@ class DetailViewModel(
     /**
      * Esse método processa o String do readme para extrair
      * os nomes de arquivo das screenshots, usando a função
-     * definida em DetailUtil
+     * definida em DetailUtil para gerar um Set<String>
+     * Depois ele atribui o tamanho desse set a _repoScreenshot
+     * e invoca o GetRepoScreenShotUseCase para povoar a
+     * list com os objetos CarouselItem.
      */
     fun fetchScreenshot(readme: String) {
         viewModelScope.launch {
@@ -131,7 +144,9 @@ class DetailViewModel(
              */
             delay(500)
             try {
-                _repoScreenshot.postValue(State.Success<Int>(readme.getScreenshotFileNamesAsList().size))
+                val filenames = readme.getScreenshotFileNamesAsList()
+                _repoScreenshot.postValue(State.Success<Int>(filenames.size))
+                _repoListCarouselItem.postValue(getRepoScreenshotsUseCase.generateListOfCarouselItems(filenames))
             } catch (ex: Exception) {
                 _repoScreenshot.postValue(State.Error(ex))
             }
