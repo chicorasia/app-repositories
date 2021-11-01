@@ -31,7 +31,6 @@
         app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        <!--        State.STATE_COLLAPSED tem o valor 4 -->
         <ImageButton
             android:id="@+id/bsCloseBtn"
             android:layout_width="@dimen/material_btn_dimension"
@@ -40,7 +39,7 @@
             android:clickable="true"
             android:focusable="true"
             android:src="@drawable/ic_close"
-            android:visibility="gone"
+            bsButtonIv="@{behaviour}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/grey_darkest"
@@ -48,30 +47,21 @@
 
         <TextView
             android:id="@+id/bsRepoNameTv"
-            style="?attr/textAppearanceHeadline6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/quicksand_bold"
+            android:textSize="@dimen/text_headline6_font_size"
             android:text="@{viewModel.repoName}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bsCloseBtn"
+            android:fontFamily="@font/quicksand_bold"
+            app:layout_constraintStart_toEndOf="@id/bsCloseBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/bsCloseBtn"
             tools:text="@string/repo_name_placeholder" />
-
-        <TextView
-            android:id="@+id/bsRepoDescriptionTv"
-            style="?attr/textAppearanceBody2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.repoDescription}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/bsRepoNameTv"
-            tools:text="@string/description_placeholder" />
 
         <com.mukesh.MarkdownView
             android:id="@+id/bsReadme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/bsRepoDescriptionTv" />
+            app:layout_constraintTop_toBottomOf="@id/bsCloseBtn" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

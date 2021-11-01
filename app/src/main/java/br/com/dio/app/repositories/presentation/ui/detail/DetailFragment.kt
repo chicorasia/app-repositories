@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.databinding.DetailBottomSheetBinding
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.limerse.slider.model.CarouselItem
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -42,9 +44,23 @@ class DetailFragment : Fragment() {
 
         initBottomSheet()
         initRepoObserver()
+        initScreenshotObserver()
+        initCarousel()
 
         return binding.root
 
+    }
+
+    /**
+     * Inicializa o carossel de imagens
+     */
+    private fun initCarousel() {
+        with(binding.detailCarousel) {
+            registerLifecycle(lifecycle)
+            mViewModel.repoListCarouselItem.observe(viewLifecycleOwner) {
+                setData(mViewModel.repoListCarouselItem.value ?: emptyList<CarouselItem>())
+            }
+        }
     }
 
     /**
@@ -81,42 +97,83 @@ class DetailFragment : Fragment() {
              * Atribui o string do arquivo README.md à visualização de Markdown
              */
             mViewModel.repoReadme.observe(viewLifecycleOwner) {
-                bsReadme.setMarkDownText(it)
+                it?.let{ bsReadme.setMarkDownText(it) }
             }
-
         }
-
     }
 
+    /**
+     * Esse método alterna o estado da Bottom Sheet. Ele também está
+     * com as responsabilidades de virar o ícone e exibir/ocultar
+     * o nome do Repo. Isso pode ser melhor resolvido por meio de um
+     * BindingAdapter.
+     */
     private fun DetailBottomSheetBinding.toggleBottomSheetState() {
         if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED) {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-            bsCloseBtn.visibility = View.VISIBLE
+            bsCloseBtn.rotation = 180F
+            bsRepoNameTv.visibility = View.GONE
         } else {
             bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
-            bsCloseBtn.visibility = View.GONE
+            bsCloseBtn.rotation = 0F
+            bsRepoNameTv.visibility = View.VISIBLE
         }
     }
 
     /**
      * Acessa os argumentos recebidos via Navigation e atualiza dos dados na tela.
-     * Por enquanto, apenas o nome do Repo.
      */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mViewModel.fetchRepo(owner = argumentos.owner, repoName = argumentos.repoName)
     }
 
-    fun initRepoObserver() {
-        mViewModel.repo.observe(viewLifecycleOwner) {
-            when(it) {
-                State.Loading -> {
-                    binding.detailHelloText.text = "Carregando..."
-                }
-                is State.Error -> {
-                    binding.detailHelloText.text = "Ocorreu um erro ao carregar"
-                }
-                is State.Success -> {
-                    binding.detailHelloText.text = "${it.result.name}"
+    /**
+     * Processa o string do README e atualiza a contagem de screenshots
+     * no ViewModel
+     */
+    private fun initRepoObserver() {
+        mViewModel.repoReadme.observe(viewLifecycleOwner) {
+            it?.let {
+                mViewModel.fetchScreenshot(it)
+            }
+        }
+    }
+
+    /**
+     * Exibe o estado e o resultado do processamento do README.
+     */
+    private fun initScreenshotObserver() {
+        mViewModel.repoScreenshot.observe(viewLifecycleOwner) { state ->
+            with(binding) {
+                when (state) {
+                    State.Loading -> {
+                        detailHelloText.visibility = View.VISIBLE
+                        detailHelloText.text = getString(R.string.loading)
+                        detailCarousel.showNavigationButtons = false
+                    }
+                    is State.Error -> {
+                        detailHelloText.text = getString(R.string.loading_error)
+                    }
+                    is State.Success -> {
+                        /**
+                         * Modifica a visibilidade dos componentes do carrossel
+                         * conforme o resultado da consulta e a quantidade de
+                         * screenshots recebidas.
+                         */
+                        when {
+                            state.result == 1 -> {
+                                detailHelloText.visibility = View.GONE
+                            }
+                            state.result > 1 -> {
+                                detailHelloText.visibility = View.GONE
+                                detailCarousel.showNavigationButtons = true
+                            }
+                            else -> {
+                                detailHelloText.text = getString(R.string.no_screenshots)
+                                detailCarousel.showNavigationButtons = false
+                            }
+                        }
+                    }
                 }
             }
         }

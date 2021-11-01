@@ -10,11 +10,9 @@ import br.com.dio.app.repositories.presentation.binding.chipColorMap
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import java.time.Instant
-import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 /**
  * Esse arquivo mantém vários adaptadores para fazer o binding

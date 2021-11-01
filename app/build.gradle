@@ -86,4 +86,7 @@ dependencies {
     //Markdown viewer
     implementation 'com.github.mukeshsolanki:MarkdownView-Android:1.1.1'
 
+    //Sliding-Carousel
+    implementation 'com.github.akshaaatt:Sliding-Carousel:1.0.1'
+
 }

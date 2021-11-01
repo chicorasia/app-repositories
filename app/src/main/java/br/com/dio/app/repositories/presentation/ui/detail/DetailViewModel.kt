@@ -5,23 +5,48 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.dio.app.repositories.core.Query
+import br.com.dio.app.repositories.core.RemoteException
 import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.data.model.Repo
 import br.com.dio.app.repositories.domain.GetRepoInfoUseCase
 import br.com.dio.app.repositories.domain.GetRepoReadmeUseCase
-import kotlinx.coroutines.flow.*
+import br.com.dio.app.repositories.domain.di.GetRepoScreenshotUseCase
+import br.com.dio.app.repositories.presentation.getScreenshotFileNamesAsList
+import com.limerse.slider.model.CarouselItem
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 
 /**
  * Essa classe dá suporte ao DetailFragment
  */
+
+const val REPO_README_FALLBACK = "*Este repo não possui um arquivo README.md*"
+
 class DetailViewModel(
     private val getRepoInfoUseCase: GetRepoInfoUseCase,
     private val getRepoReadmeUseCase: GetRepoReadmeUseCase,
 ) : ViewModel() {
 
-//    TODO: adicionar um getRepoScreenshots
+
+    /**
+     * Esse use case vai ser usado para gerar uma lista de URLs das screenshots no
+     * formato esperado pelo Carousel. Como ele precisa receber um repo como
+     * parâmetro do construtor, optei por uma inicialização tardia
+     * depois que o repo é recuperado da API
+     */
+    private lateinit var getRepoScreenshotsUseCase: GetRepoScreenshotUseCase
+
+    /**
+     *
+     */
+    private val _repoListCarouselItem = MutableLiveData<List<CarouselItem>>()
+    val repoListCarouselItem: LiveData<List<CarouselItem>>
+        get() = _repoListCarouselItem
 
     /**
      * Esse campo mantém o Repo como um State, para facilitar
@@ -45,16 +70,24 @@ class DetailViewModel(
     val repoName: LiveData<String>
         get() = _repoName
 
-    private val _repoDescription = MutableLiveData<String>()
-    val repoDescription: LiveData<String>
-        get() = _repoDescription
-
     private val _repoReadme = MutableLiveData<String>()
     val repoReadme: LiveData<String>
         get() = _repoReadme
 
+
     /**
-     * Recupera um único repo da API e atribui ao campo _repo
+     * Um campo para manter uma lista de screenshots.
+     * Algo me diz que isso deveria ir para uma classe à parte.
+     */
+    private val _repoScreenshot = MutableLiveData<State<Int>>()
+    val repoScreenshot: LiveData<State<Int>>
+        get() = _repoScreenshot
+
+
+    /**
+     * Recupera um único repo da API e atribui ao campo _repo.
+     * Depois, instancia o GetRepoScreenShot com o objeto
+     * recebido da API
      */
 
     fun fetchRepo(owner: String, repoName: String) {
@@ -69,18 +102,54 @@ class DetailViewModel(
                 }
                 .collect {
                     _repo.postValue(State.Success(it!!))
+                    getRepoScreenshotsUseCase = GetRepoScreenshotUseCase(it)
                     _repoName.postValue(it.name)
-                    _repoDescription.postValue(it.description.toString())
-                    fetchReadme(it)
+                    with(it) {
+                        fetchReadme(this)
+                    }
                 }
         }
-
     }
 
-    fun fetchReadme(repo: Repo) {
+    /**
+     * Esse método recupera o arquivo md do README e atribui
+     * ao campo _repoReadme. Se o repo não tiver um arquivo,
+     * trata a RemoteException adicionando um texto 'fallback'.
+     */
+    private fun fetchReadme(repo: Repo) {
         val query = Query(repo.owner.login, repo.name, repo.defaultBranch)
         viewModelScope.launch {
-            _repoReadme.value = getRepoReadmeUseCase(query).first()
+            try {
+                _repoReadme.value = getRepoReadmeUseCase(query).first()
+            } catch (ex: RemoteException) {
+                _repoReadme.value = REPO_README_FALLBACK
+            }
+
+        }
+    }
+
+    /**
+     * Esse método processa o String do readme para extrair
+     * os nomes de arquivo das screenshots, usando a função
+     * definida em DetailUtil para gerar um Set<String>
+     * Depois ele atribui o tamanho desse set a _repoScreenshot
+     * e invoca o GetRepoScreenShotUseCase para povoar a
+     * list com os objetos CarouselItem.
+     */
+    fun fetchScreenshot(readme: String) {
+        viewModelScope.launch {
+            _repoScreenshot.postValue(State.Loading)
+            /**
+             * Um atraso de 500 milissegundos só para efeitos cosméticos...
+             */
+            delay(500)
+            try {
+                val filenames = readme.getScreenshotFileNamesAsList()
+                _repoScreenshot.postValue(State.Success<Int>(filenames.size))
+                _repoListCarouselItem.postValue(getRepoScreenshotsUseCase.generateListOfCarouselItems(filenames))
+            } catch (ex: Exception) {
+                _repoScreenshot.postValue(State.Error(ex))
+            }
         }
     }
 

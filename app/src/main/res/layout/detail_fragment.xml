@@ -24,6 +24,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+<!--            Um widget para mostrar as screenshots na forma de carossel -->
+            <com.limerse.slider.ImageCarousel
+                android:id="@+id/detailCarousel"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:showNavigationButtons="false"/>
+
             <ImageButton
                 android:id="@+id/detailCloseBtn"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@{viewModel.repo.toString()}"
+                android:text="@{viewModel.repoScreenshot.toString()}"
                 tools:text="@string/detail_placeholder" />
 
             <androidx.coordinatorlayout.widget.CoordinatorLayout

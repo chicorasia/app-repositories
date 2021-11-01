@@ -10,4 +10,7 @@
     <string name="detail_placeholder">Hello, I\'m Detail Fragment!</string>
     <string name="description_placeholder">App mobile desenvolvido no módulo *Criando um app de cartão de visitas em Kotlin* - Bootcamp DIO Inter Android Developer</string>
     <string name="repo_name_placeholder">RepoName</string>
+    <string name="loading">Carregando...</string>
+    <string name="loading_error">Ocorreu um erro ao carregar</string>
+    <string name="no_screenshots">Esse repo não possui screenshots ou imagens</string>
 </resources>
