@@ -14,5 +14,7 @@ internal val chipColorMap: Map<String, Int> = mapOf(
     Pair("Python", R.color.python_blue),
     Pair("Kotlin", R.color.kotlin_purple),
     Pair("Html", R.color.html_orange),
-    Pair("Other", R.color.other_green)
+    Pair("Other", R.color.other_green),
+    Pair("C++", R.color.cplusplus_pink),
+    Pair("C", R.color.c_warm_grey)
 )

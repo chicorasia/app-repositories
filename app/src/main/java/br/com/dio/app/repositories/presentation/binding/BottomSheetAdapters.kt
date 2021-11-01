@@ -9,7 +9,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPS
 /**
  * Esse adapter serviria para controlar o ImageButton da Bottom Sheet,
  * mas ainda não consegui vincular os comportamentos corretamente.
- * TODO: vincular comportamentos corretamente
  */
 @BindingAdapter("bsButtonIv")
 fun ImageView.setButtonImage(behavior: BottomSheetBehavior<*>) {

@@ -14,6 +14,8 @@
     <color name="python_blue">#16a1a6</color>
     <color name="other_green">#5ea87d</color>
     <color name="html_orange">#f25e09</color>
+    <color name="cplusplus_pink">#BD4A68</color>
+    <color name="c_warm_grey">#967E7E</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
