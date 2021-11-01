@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import br.com.dio.app.repositories.R
 import br.com.dio.app.repositories.core.State
 import br.com.dio.app.repositories.databinding.DetailBottomSheetBinding
 import br.com.dio.app.repositories.databinding.DetailFragmentBinding
@@ -60,8 +61,6 @@ class DetailFragment : Fragment() {
                 setData(mViewModel.repoListCarouselItem.value ?: emptyList<CarouselItem>())
             }
         }
-
-
     }
 
     /**
@@ -100,9 +99,7 @@ class DetailFragment : Fragment() {
             mViewModel.repoReadme.observe(viewLifecycleOwner) {
                 it?.let{ bsReadme.setMarkDownText(it) }
             }
-
         }
-
     }
 
     /**
@@ -146,16 +143,37 @@ class DetailFragment : Fragment() {
      * Exibe o estado e o resultado do processamento do README.
      */
     private fun initScreenshotObserver() {
-        mViewModel.repoScreenshot.observe(viewLifecycleOwner) {
-            when (it) {
-                State.Loading -> {
-                    binding.detailHelloText.text = "Carregando..."
-                }
-                is State.Error -> {
-                    binding.detailHelloText.text = "Ocorreu um erro ao carregar"
-                }
-                is State.Success -> {
-                    binding.detailHelloText.text = "Esse repo possui ${it.result} screenshots!"
+        mViewModel.repoScreenshot.observe(viewLifecycleOwner) { state ->
+            with(binding) {
+                when (state) {
+                    State.Loading -> {
+                        detailHelloText.visibility = View.VISIBLE
+                        detailHelloText.text = getString(R.string.loading)
+                        detailCarousel.showNavigationButtons = false
+                    }
+                    is State.Error -> {
+                        detailHelloText.text = getString(R.string.loading_error)
+                    }
+                    is State.Success -> {
+                        /**
+                         * Modifica a visibilidade dos componentes do carrossel
+                         * conforme o resultado da consulta e a quantidade de
+                         * screenshots recebidas.
+                         */
+                        when {
+                            state.result == 1 -> {
+                                detailHelloText.visibility = View.GONE
+                            }
+                            state.result > 1 -> {
+                                detailHelloText.visibility = View.GONE
+                                detailCarousel.showNavigationButtons = true
+                            }
+                            else -> {
+                                detailHelloText.text = getString(R.string.no_screenshots)
+                                detailCarousel.showNavigationButtons = false
+                            }
+                        }
+                    }
                 }
             }
         }
