@@ -35,6 +35,12 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 ## Versões
 
+### V0.3
+- Persistência do último usuário consultado
+- Tela de detalhes do Repositório
+- Screenshots do repositório
+- Exibição do arquivo README do Repo
+
 ### V0.2
 - Validação de usuário junto à API
 - Ordenação de resultados por nome do Repo ou por data do último *push*
@@ -58,13 +64,17 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 
 ![Screenshot_2](Screenshot_2.png)
 
-![Screenshot_1](Screenshot_3.png)
+![Screenshot_3](Screenshot_3.png)
 
-![Screenshot_2](Screenshot_4.png)
+![Screenshot_4](Screenshot_4.png)
 
-![Screenshot_1](Screenshot_5.png)
+![Screenshot_5](Screenshot_5.png)
 
-![Screenshot_2](Screenshot_6.png)
+![Screenshot_6](Screenshot_6.png)
+
+![Screenshot_7](Screenshot_7.png)
+
+![Screenshot_8](Screenshot_8.png)
 
 
 ****
