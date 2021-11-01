@@ -12,6 +12,7 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **Estética  *on brand***. Cores, fontes e estilo visual conforme projeto gráfico do app e sua "marca".
 - **Items clicáveis**. Os cliques na RecyclerView foram implementados por meio de uma classe ClickListener, com os comportamentos sobrescritos durante a instanciação do Adapter. Optei por essa solução pela sua simplicidade e versatilidade, pois permite que outros comportamentos de clique sejam encapsulados na mesma classe. Essa é uma boa prática recomendada pela equipe da Google.
 - **Detalhes do Repo**. Os detalhes de um Repositório são exibidos na em uma tela (fragmento) à parte; se o repositório tiver um arquivo README.md, seu conteúdo é exibido numa *bottom sheet* na tela de detalhes.
+- **Exibição de screenshots**. Os nomes de arquivos .jpeg, .jpg e .png presentes no README são extraídos por meio de expressões regulares (Regex) e as imagens são carregadas em um carrossel no fundo da tela de detalhes do Repo.
 - **Github raw content**. Usa os dados do repositório para acessar os endpoints no domínio `raw.githubusercontent.com` e exibir o conteúdo do README.
 - **Uso avançado de string resources**. Uso de *Strings* para a formatação de texto e *string arrays* para a seleção contextual da String.
 - ***Chips* expressivos**. Esses elementos da UI são deixados mais comunicativos por meio do uso de cor, ícone e texto. Foi usado `Map<K, V>` para manter as constantes. Isso evita o acoplamento do código do *BindingAdapter* e facilita a adição de mais linguagens e cores.
@@ -19,13 +20,14 @@ Além dos conceitos desenvolvidos nas aulas, o app emprega as seguintes tecnolog
 - **DataBinding e Listener Bindings**. Adotei essas soluções, sempre que possível, para reduzir o acoplamento do código e ter mais flexibilidade. A visibilidade de componentes é controlada por variáveis do ViewModel.
 - **BindingAdapters**. O DataBinding é facilitado por meio dos BindingAdapters, que convertem dados e configuram as views a partir dos dados da entidade. 
 - **Boas práticas de uso de estilos, dimensions, etc.** Procurei adotar melhores práticas para a padronização dos componentes visuais nos arquivos XML, tais como o uso de estilos standard do Material Design, extração de atributos @dimen e @string e outras ferramentas, visando a uniformidade, acessibilidade e manutenabilidade do app.
+- **Testes de unidade e TDD**. Foi utilizada a técnica de *Test Driven Development* para implmentação de algumas funcionalidades do app.
 - **Documentação extensiva**. Cada classe traz comentários para explicar o funcionamento e as decisões de projeto.
 - **Moshi**. Adotei a biblioteca Moshi para o parseamento de arquivos JSON.  
 - **Arquitetura MVVM baseada em Fragments**. Optei por organizar o app em Fragments com ViewModel; a MainActivity tem somente a responsabilidade de manter o NavHostController. Adotei essa solução por ser uma arquitetura mais atual.
 - **Android Navigation Component**. Optei por essa solução, em conjunto com os Fragments, porque acredito que dá mais flexibilidade e permite fluxos de navegação mais sofisticados.
 - **Safe Args**. Fluxo de dados entre fragmentos facilitado por meio do plugin safe-args.  
 - **ListAdapter e ViewHolder**. Adotei melhores práticas como a delegação das responsabilidade de inflar o layout e fazer o binding dos dados a partir da classe ViewHolder, e não nos métodos da classe ListAdapter.
-- **Corrotinas**. Uso extensivo de corrotinas para todas as operações de consulta à API.
+- **Corrotinas**. Uso extensivo de corrotinas e *flow* para todas as operações de consulta à API.
 - **Clean Architecture**. Funcionalidades foram adicionadas seguindo princípios de Clean Architecture, com novos *use cases*, entidades, etc., conforme a necessidade. 
 - **Versionamento segundo princípios de GitFlow.**
 
